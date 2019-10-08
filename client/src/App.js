@@ -51,15 +51,11 @@ class App extends Component {
           <Redirect to="/home" />
 
           <div className="App">
-            <header className="App-header">
-              <Navbar
+            <Navbar
                 userInSession={this.state.loggedInUser}
                 logout={this.logout}
               />
               <Search />
-             
-            </header>
-          </div>
         </React.Fragment>
       );
     } else {
@@ -68,7 +64,6 @@ class App extends Component {
           <Redirect to="/login" />
 
           <div className="App">
-            <header className="App-header">
               <Navbar
                 userInSession={this.state.loggedInUser}
                 logout={this.logout}
@@ -85,7 +80,7 @@ class App extends Component {
                   render={() => <Login getUser={this.getUser} />}
                 />
               </Switch>
-            </header>
+            
           </div>
         </React.Fragment>
       );
