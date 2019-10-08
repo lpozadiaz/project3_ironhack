@@ -26,11 +26,8 @@ class Navbar extends Component {
             <li>
               <a onClick={this.handleLogout}>Logout</a>
             </li>
+            <li>Welcome {this.state.loggedInUser.username}</li>
           </ul>
-
-          <div className="header">
-            <h2>Welcome {this.state.loggedInUser.username} - Ironhacker</h2>
-          </div>
         </nav>
       );
     } else {
