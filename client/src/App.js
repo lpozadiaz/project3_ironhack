@@ -6,6 +6,7 @@ import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
 import AuthService from "./components/auth/AuthService";
 import Search from "./components/search/Search";
+import Map from "./components/map/Map";
 
 class App extends Component {
   constructor(props) {
@@ -13,12 +14,12 @@ class App extends Component {
     this.state = { loggedInUser: null };
     this.service = new AuthService();
 
-    this.fetchUser()
+    this.fetchUser();
   }
 
   getUser = userObj => {
     this.setState({
-      loggedInUser: userObj,
+      loggedInUser: userObj
     });
   };
 
@@ -33,12 +34,12 @@ class App extends Component {
       .loggedin()
       .then(response => {
         this.setState({
-          loggedInUser: response,
+          loggedInUser: response
         });
       })
       .catch(err => {
         this.setState({
-          loggedInUser: false,
+          loggedInUser: false
         });
       });
   }
@@ -51,15 +52,14 @@ class App extends Component {
 
           <div className="App">
             <header className="App-header">
-              <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
+              <Navbar
+                userInSession={this.state.loggedInUser}
+                logout={this.logout}
+              />
               <Search />
+              <Map />
             </header>
-            
           </div>
-
-          <div className="container">
-      
-    </div>
         </React.Fragment>
       );
     } else {
@@ -69,10 +69,21 @@ class App extends Component {
 
           <div className="App">
             <header className="App-header">
-              <Navbar userInSession={this.state.loggedInUser} logout={this.logout} />
+              <Navbar
+                userInSession={this.state.loggedInUser}
+                logout={this.logout}
+              />
               <Switch>
-                <Route exact path="/signup" render={() => <Signup getUser={this.getUser} />} />
-                <Route exact path="/login" render={() => <Login getUser={this.getUser} />} />
+                <Route
+                  exact
+                  path="/signup"
+                  render={() => <Signup getUser={this.getUser} />}
+                />
+                <Route
+                  exact
+                  path="/login"
+                  render={() => <Login getUser={this.getUser} />}
+                />
               </Switch>
             </header>
           </div>
@@ -83,4 +94,3 @@ class App extends Component {
 }
 
 export default App;
-

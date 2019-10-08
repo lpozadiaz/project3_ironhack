@@ -14,8 +14,8 @@ class Search extends React.Component {
     this.state = {
       address: '',
       errorMessage: '',
-      latitude: null,
-      longitude: null,
+      latitude: 59.95,
+      longitude: 30.33,
       isGeocoding: false,
     };
   }
@@ -23,8 +23,8 @@ class Search extends React.Component {
   handleChange = address => {
     this.setState({
       address,
-      latitude: null,
-      longitude: null,
+      latitude: 59.95,
+      longitude: 30.33,
       errorMessage: '',
     });
   };
