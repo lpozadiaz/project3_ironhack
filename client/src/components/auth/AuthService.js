@@ -17,6 +17,7 @@ class AuthService {
     return this.service.post('/login', {username, password})
     .then(response => response.data)
   }
+  
 
   loggedin = () => {
     return this.service.get('/currentUser',)

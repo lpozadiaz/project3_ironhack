@@ -59,7 +59,6 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-
 router.get('/currentuser', (req,res,next) => {
   if(req.user){
     res.status(200).json(req.user);
@@ -67,7 +66,6 @@ router.get('/currentuser', (req,res,next) => {
     next(new Error('Not logged in'))
   }
 })
-
 
 router.get('/logout', (req,res) => {
   req.logout();
