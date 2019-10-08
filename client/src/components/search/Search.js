@@ -6,7 +6,9 @@ import {
   getLatLng,
 } from 'react-places-autocomplete';
 import { classnames } from './searchHelpers';
-import "./Search.css"
+import "./Search.css";
+import { Link } from "react-router-dom";
+import Map from "../map/Map";
 
 class Search extends React.Component {
   constructor(props) {
@@ -14,8 +16,8 @@ class Search extends React.Component {
     this.state = {
       address: '',
       errorMessage: '',
-      latitude: 59.95,
-      longitude: 30.33,
+      latitude: null,
+      longitude: null,
       isGeocoding: false,
     };
   }
@@ -23,8 +25,8 @@ class Search extends React.Component {
   handleChange = address => {
     this.setState({
       address,
-      latitude: 59.95,
-      longitude: 30.33,
+      latitude: null,
+      longitude: null,
       errorMessage: '',
     });
   };
@@ -60,8 +62,6 @@ class Search extends React.Component {
       clearSuggestions();
     });
   };
-
-  
 
   render() {
     const {
@@ -117,6 +117,7 @@ class Search extends React.Component {
                         <div
                           {...getSuggestionItemProps(suggestion, { className })}
                         >
+                         
                           <strong>
                             {suggestion.formattedSuggestion.mainText}
                           </strong>{' '}
@@ -147,7 +148,8 @@ class Search extends React.Component {
 
         {((latitude && longitude) || isGeocoding) && (
           <div>
-            <h3 className="Demo__geocode-result-header">Geocode result</h3>
+            <Map search={this.props}/>
+            {/* <h3 className="Demo__geocode-result-header">Geocode result</h3>
             {isGeocoding ? (
               <div>
                 <i className="fa fa-spinner fa-pulse fa-3x fa-fw Demo__spinner" />
@@ -166,8 +168,9 @@ class Search extends React.Component {
                   <label>Address: </label>
                   <span>{address}</span>
                 </div>
+                
               </div>
-            )}
+            )} */}
           </div>
         )}
       </div>

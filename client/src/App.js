@@ -55,9 +55,7 @@ class App extends Component {
                 userInSession={this.state.loggedInUser}
                 logout={this.logout}
               />
-            <Search />
-            <Map />
-          </div>
+              <Search />
         </React.Fragment>
       );
     } else {
