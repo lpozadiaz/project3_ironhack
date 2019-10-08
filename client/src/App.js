@@ -57,7 +57,7 @@ class App extends Component {
                 logout={this.logout}
               />
               <Search />
-              <Map />
+             
             </header>
           </div>
         </React.Fragment>
