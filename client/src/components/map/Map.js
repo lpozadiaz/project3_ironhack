@@ -15,13 +15,14 @@ class Map extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentDidMount () {
+    const latitude = this.props.match.params.latitude;
+    const longitude = this.props.match.params.longitude;
     this.setState({
       ...this.state,
-      latitude: nextProps["latitude"],
-      longitude: nextProps["longitude"]
-      
-    });console.log(this.state.latitude)
+      latitude,
+      longitude
+    })
   }
 
   render() {
@@ -31,22 +32,27 @@ class Map extends Component {
       zoom
     } = this.state;
 
-    const center = {latitude, longitude}
+    const center = {
+      "lat": +latitude,
+      "lng": +longitude
+    };
 
     console.log(latitude)
+    console.log(longitude)
+    console.log(center)
 
     return (
       // Important! Always set the container height explicitly
       <div style={{ height: "100vh", width: "100%" }}>
         <Search></Search>
-
+        {(this.state.latitude && this.state.longitude) && (
         <GoogleMapReact
-          defaultCenter={center}
+          center={center}
           defaultZoom={zoom}
         >
           
           <AnyReactComponent text="My Marker" />
-        </GoogleMapReact>
+        </GoogleMapReact>)}
       </div>
     );
   }

@@ -117,14 +117,13 @@ class Search extends React.Component {
                           {...getSuggestionItemProps(suggestion, { className })}
                         >
                           
-                          {/* <Link to={`/map/${suggestion.placeId}`}> */}
                             <strong>
                             {suggestion.formattedSuggestion.mainText}
                           </strong>{' '}
                           <small>
                             {suggestion.formattedSuggestion.secondaryText}
                           </small>
-                          {/* </Link> */}
+                        
 
                           
                         </div>
@@ -148,20 +147,7 @@ class Search extends React.Component {
               </div>
             ) : (
               <div>
-                {/* <Redirect to='/map' latitude={latitude} longitude={longitude}/> */}
-                <Redirect to={'/map/'+latitude+'/'+longitude}/>
-                {/* <div className="Demo__geocode-result-item--lat">
-                  <label>Latitude: </label>
-                  <span>{latitude}</span>
-                </div>
-                <div className="Demo__geocode-result-item--lng">
-                  <label>Longitude: </label>
-                  <span>{longitude}</span>
-                </div>
-                <div className="Demo__geocode-result-item--lng">
-                  <label>Address: </label>
-                  <span>{address}</span>
-                </div> */}
+                <Redirect to={'/map/'+latitude+'/'+longitude} latitude={latitude} longitude={longitude}/>
               </div>
             )}
           </div>

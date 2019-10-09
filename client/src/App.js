@@ -63,8 +63,8 @@ class App extends Component {
                 />
                 <Route
                   exact
-                  path="/map"
-                  render={() => <Map/>}
+                  path="/map/:latitude/:longitude" render={(props) => <Map {...props}/>}
+                  
                 />
               </Switch>
             </div>
