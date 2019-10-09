@@ -11,7 +11,7 @@ import Map from "./components/map/Map";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedInUser: null };
+    this.state = { loggedInUser: null, };
     this.service = new AuthService();
 
     this.fetchUser();
@@ -50,12 +50,24 @@ class App extends Component {
         <React.Fragment>
           <Redirect to="/home" />
 
-          
+            <div>
             <Navbar
                 userInSession={this.state.loggedInUser}
                 logout={this.logout}
               />
-              <Search />
+            <Switch>
+                <Route
+                  exact
+                  path="/home"
+                  render={() => <Search/>}
+                />
+                <Route
+                  exact
+                  path="/map"
+                  render={() => <Map/>}
+                />
+              </Switch>
+            </div>
         </React.Fragment>
       );
     } else {

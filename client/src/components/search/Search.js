@@ -7,8 +7,8 @@ import {
 } from 'react-places-autocomplete';
 import { classnames } from './searchHelpers';
 import "./Search.css";
-import { Link } from "react-router-dom";
-import Map from "../map/Map";
+// import Map from "../map/Map";
+import { Redirect } from "react-router-dom";
 
 class Search extends React.Component {
   constructor(props) {
@@ -44,7 +44,7 @@ class Search extends React.Component {
       })
       .catch(error => {
         this.setState({ isGeocoding: false });
-        console.log('error', error); // eslint-disable-line no-console
+        console.log('error', error);
       });
   };
 
@@ -57,7 +57,7 @@ class Search extends React.Component {
   };
 
   handleError = (status, clearSuggestions) => {
-    console.log('Error from Google Maps API', status); // eslint-disable-line no-console
+    console.log('Error from Google Maps API', status); 
     this.setState({ errorMessage: status }, () => {
       clearSuggestions();
     });
@@ -113,29 +113,23 @@ class Search extends React.Component {
                       });
 
                       return (
-                        /* eslint-disable react/jsx-key */
                         <div
                           {...getSuggestionItemProps(suggestion, { className })}
                         >
-                         
-                          <strong>
+                          
+                          {/* <Link to={`/map/${suggestion.placeId}`}> */}
+                            <strong>
                             {suggestion.formattedSuggestion.mainText}
                           </strong>{' '}
                           <small>
                             {suggestion.formattedSuggestion.secondaryText}
                           </small>
+                          {/* </Link> */}
+
+                          
                         </div>
                       );
-                      /* eslint-enable react/jsx-key */
                     })}
-                    {/* <div className="Demo__dropdown-footer">
-                      <div>
-                        <img
-                          src={require('../images/powered_by_google_default.png')}
-                          className="Demo__dropdown-footer-image"
-                        />
-                      </div>
-                    </div> */}
                   </div>
                 )}
               </div>
@@ -148,15 +142,15 @@ class Search extends React.Component {
 
         {((latitude && longitude) || isGeocoding) && (
           <div>
-            <Map search={this.props}/>
-            {/* <h3 className="Demo__geocode-result-header">Geocode result</h3>
             {isGeocoding ? (
               <div>
                 <i className="fa fa-spinner fa-pulse fa-3x fa-fw Demo__spinner" />
               </div>
             ) : (
               <div>
-                <div className="Demo__geocode-result-item--lat">
+                {/* <Redirect to='/map' latitude={latitude} longitude={longitude}/> */}
+                <Redirect to={'/map/'+latitude+'/'+longitude}/>
+                {/* <div className="Demo__geocode-result-item--lat">
                   <label>Latitude: </label>
                   <span>{latitude}</span>
                 </div>
@@ -167,10 +161,9 @@ class Search extends React.Component {
                 <div className="Demo__geocode-result-item--lng">
                   <label>Address: </label>
                   <span>{address}</span>
-                </div>
-                
+                </div> */}
               </div>
-            )} */}
+            )}
           </div>
         )}
       </div>
