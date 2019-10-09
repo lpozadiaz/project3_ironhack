@@ -50,7 +50,7 @@ class App extends Component {
         <React.Fragment>
           <Redirect to="/home" />
 
-          <div className="App">
+          
             <Navbar
                 userInSession={this.state.loggedInUser}
                 logout={this.logout}
