@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
-import Search from "../search/Search";
-// import axios from 'axios';
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -11,48 +9,53 @@ class Map extends Component {
     this.state = {
       latitude: null,
       longitude: null,
-      zoom: 11,
+      zoom: 11
     };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const latitude = this.props.match.params.latitude;
     const longitude = this.props.match.params.longitude;
-    this.setState({
-      ...this.state,
-      latitude,
-      longitude
-    })
+
+    fetch(`/map/${latitude}/${longitude}`)
+      .then(response => {
+        this.setState({
+          latitude: latitude,
+          longitude: longitude
+        });
+      })
+      .catch(err => {
+        this.setState({
+          latitude: null,
+          longitude: null
+        });
+      });
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.latitude !== prevProps.match.params.latitude && this.props.match.params.longitude !== prevProps.match.params.longitude) {
+      this.setState({
+        latitude: this.props.match.params.latitude,
+        longitude: this.props.match.params.longitude
+      });
+    }
+}
+
   render() {
-    const {
-      latitude,
-      longitude,
-      zoom
-    } = this.state;
+    const { latitude, longitude, zoom } = this.state;
 
     const center = {
-      "lat": +latitude,
-      "lng": +longitude
+      lat: +latitude,
+      lng: +longitude
     };
 
-    console.log(latitude)
-    console.log(longitude)
-    console.log(center)
-
     return (
-      // Important! Always set the container height explicitly
       <div style={{ height: "100vh", width: "100%" }}>
-        <Search></Search>
-        {(this.state.latitude && this.state.longitude) && (
-        <GoogleMapReact
-          center={center}
-          defaultZoom={zoom}
-        >
-          
-          <AnyReactComponent text="My Marker" />
-        </GoogleMapReact>)}
+        {this.state.latitude && this.state.longitude && (
+          <GoogleMapReact center={center} defaultZoom={zoom}>
+            <AnyReactComponent text="My Marker" />
+          </GoogleMapReact>
+        )}
       </div>
     );
   }

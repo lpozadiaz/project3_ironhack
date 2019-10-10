@@ -2,12 +2,10 @@ import React from 'react';
 import PlacesAutocomplete from 'react-places-autocomplete';
 import {
   geocodeByAddress,
-  geocodeByPlaceId,
   getLatLng,
 } from 'react-places-autocomplete';
 import { classnames } from './searchHelpers';
 import "./Search.css";
-// import Map from "../map/Map";
 import { Redirect } from "react-router-dom";
 
 class Search extends React.Component {
@@ -116,7 +114,6 @@ class Search extends React.Component {
                         <div
                           {...getSuggestionItemProps(suggestion, { className })}
                         >
-                          
                             <strong>
                             {suggestion.formattedSuggestion.mainText}
                           </strong>{' '}
@@ -124,8 +121,6 @@ class Search extends React.Component {
                             {suggestion.formattedSuggestion.secondaryText}
                           </small>
                         
-
-                          
                         </div>
                       );
                     })}
@@ -143,11 +138,10 @@ class Search extends React.Component {
           <div>
             {isGeocoding ? (
               <div>
-                <i className="fa fa-spinner fa-pulse fa-3x fa-fw Demo__spinner" />
               </div>
             ) : (
               <div>
-                <Redirect to={'/map/'+latitude+'/'+longitude} latitude={latitude} longitude={longitude}/>
+                <Redirect to={'/map/'+latitude+'/'+longitude}/>
               </div>
             )}
           </div>

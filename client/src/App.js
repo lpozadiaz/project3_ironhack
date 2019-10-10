@@ -11,7 +11,11 @@ import Map from "./components/map/Map";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedInUser: null, };
+    this.state = {
+      loggedInUser: null,
+      latitude: null,
+      longitude: null
+    };
     this.service = new AuthService();
 
     this.fetchUser();
@@ -50,24 +54,20 @@ class App extends Component {
         <React.Fragment>
           <Redirect to="/home" />
 
-            <div>
+          <div>
             <Navbar
-                userInSession={this.state.loggedInUser}
-                logout={this.logout}
-              />
+              userInSession={this.state.loggedInUser}
+              logout={this.logout}
+            />
+            <Search />
             <Switch>
-                <Route
-                  exact
-                  path="/home"
-                  render={() => <Search/>}
-                />
-                <Route
-                  exact
-                  path="/map/:latitude/:longitude" render={(props) => <Map {...props}/>}
-                  
-                />
-              </Switch>
-            </div>
+              <Route
+                exact
+                path="/map/:latitude/:longitude"
+                render={(props) => <Map {...props}/>}
+              />
+            </Switch>
+          </div>
         </React.Fragment>
       );
     } else {
@@ -76,23 +76,22 @@ class App extends Component {
           <Redirect to="/login" />
 
           <div className="App">
-              <Navbar
-                userInSession={this.state.loggedInUser}
-                logout={this.logout}
+            <Navbar
+              userInSession={this.state.loggedInUser}
+              logout={this.logout}
+            />
+            <Switch>
+              <Route
+                exact
+                path="/signup"
+                render={() => <Signup getUser={this.getUser} />}
               />
-              <Switch>
-                <Route
-                  exact
-                  path="/signup"
-                  render={() => <Signup getUser={this.getUser} />}
-                />
-                <Route
-                  exact
-                  path="/login"
-                  render={() => <Login getUser={this.getUser} />}
-                />
-              </Switch>
-            
+              <Route
+                exact
+                path="/login"
+                render={() => <Login getUser={this.getUser} />}
+              />
+            </Switch>
           </div>
         </React.Fragment>
       );
