@@ -8,8 +8,8 @@ class AuthService {
     });
   }
 
-  signup = (username, password) => {
-    return this.service.post('/signup', {username, password})
+  signup = (username, password, email, photo) => {
+    return this.service.post('/signup', {username, password, email, photo})
     .then(response => response.data)
   }
 

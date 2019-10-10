@@ -10,7 +10,7 @@ cloudinary.config({
 
 const storage = cloudinaryStorage({
   cloudinary,
-  folder: "madParking",
+  folder: "tripTip",
   allowedFormats: ["jpg", "png", "svg"],
   function(req, file, cb) {
     cb(null, file.originalname);
