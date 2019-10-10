@@ -3,14 +3,12 @@ const router  = express.Router();
 const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const passport = require('passport');
+const upload = require("./../configs/cloudinary.config");
 
 const login = (req, user) => {
   return new Promise((resolve,reject) => {
     req.login(user, err => {
-      console.log('req.login ')
-      console.log(user)
 
-      
       if(err) {
         reject(new Error('Something went wrong'))
       }else{
@@ -20,12 +18,16 @@ const login = (req, user) => {
   })
 }
 
-router.post('/signup', (req, res, next) => {
+router.post('/signup', upload.single("userPhoto"), (req, res, next) => {
 
-  const {username, password} = req.body;
+  const {username, password, email} = req.body;
+  let originalname;
+  let url;
 
-  console.log('username', username)
-  console.log('password', password)
+  if (req.file) {
+    originalname = req.file.originalname;
+    url = req.file.url;
+  }
 
   if (!username || !password){
     next(new Error('You must provide valid credentials'));
@@ -40,7 +42,12 @@ router.post('/signup', (req, res, next) => {
 
     return new User({
       username,
-      password: hashPass
+      password: hashPass,
+      email,
+      photo: {
+        url,
+        name: originalname
+      },
     }).save();
   })
   .then( savedUser => login(req, savedUser)) // Login the user using passport
