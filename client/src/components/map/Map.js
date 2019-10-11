@@ -1,9 +1,25 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import axios from "axios";
-import {mapStyle} from "./MapStyle";
+import { mapStyle } from "./MapStyle";
 
-const Marker = ({ text }) => <div>{text}</div>;
+const Marker = ({ text }) => (
+  <div
+    style={{
+      color: "white",
+      background: "grey",
+      padding: "15px 10px",
+      display: "inline-flex",
+      textAlign: "center",
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: "100%",
+      transform: "translate(-50%, -50%)"
+    }}
+  >
+    {text}
+  </div>
+);
 
 class Map extends Component {
   constructor(props) {
@@ -70,11 +86,10 @@ class Map extends Component {
 
     const mapOptions = {
       styles: mapStyle
-  };
+    };
 
     return (
       <div style={{ height: "70vh", width: "90%" }}>
-       
         {this.state.latitude && this.state.longitude && (
           <GoogleMapReact
             google={this.props.google}
