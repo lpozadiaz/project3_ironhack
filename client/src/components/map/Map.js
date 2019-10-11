@@ -76,6 +76,8 @@ class Map extends Component {
       });
   };
 
+  onClick = ({x, y, lat, lng, event}) => console.log(x, y, lat, lng, event)
+
   render() {
     const { latitude, longitude, zoom, places } = this.state;
 
@@ -96,8 +98,9 @@ class Map extends Component {
             center={center}
             defaultZoom={zoom}
             options={mapOptions}
-            onClick={this.onMapClicked}
-            yesIWantToUseGoogleMapApiInternals
+            onClick={this.onClick}
+            
+            yesIWantToUseGoogleMapApiInternals={true}
           >
             {places.map(place => {
               return (
