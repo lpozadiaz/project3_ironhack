@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import axios from "axios";
+import {mapStyle} from "./MapStyle";
 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+const Marker = ({ text }) => <div>{text}</div>;
 
 class Map extends Component {
   constructor(props) {
@@ -67,20 +68,30 @@ class Map extends Component {
       lng: +longitude
     };
 
-    console.log(places);
+    const mapOptions = {
+      styles: mapStyle
+  };
 
     return (
-      <div style={{ height: "100vh", width: "100%" }}>
-        {this.state.places.map(place => {
-          return <div>{place.name} {place.address} {place.location.coordinates[0]} {place.location.coordinates[1]}</div>;
-        })}
+      <div style={{ height: "70vh", width: "90%" }}>
+       
         {this.state.latitude && this.state.longitude && (
-          <GoogleMapReact center={center} defaultZoom={zoom}>
+          <GoogleMapReact
+            google={this.props.google}
+            center={center}
+            defaultZoom={zoom}
+            options={mapOptions}
+            onClick={this.onMapClicked}
+            yesIWantToUseGoogleMapApiInternals
+          >
             {places.map(place => {
               return (
-                <div>
-                  <AnyReactComponent text="My Marker" />
-                </div>
+                <Marker
+                  key={`${place._id}`}
+                  lat={`${place.location.coordinates[1]}`}
+                  lng={`${place.location.coordinates[0]}`}
+                  text={`${place.name}`}
+                />
               );
             })}
           </GoogleMapReact>
