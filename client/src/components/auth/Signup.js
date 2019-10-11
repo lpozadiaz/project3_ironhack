@@ -82,7 +82,7 @@ class Signup extends Component {
             <label>Photo</label>
             <input
               type="file"
-              name="userPhoto"
+              name="photo"
               value={this.state.photo}
               onChange={e => this.handleChange(e)}
             />

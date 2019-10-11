@@ -13,10 +13,7 @@ const userSchema = new Schema({
     trim: true,
     match: [EMAIL_PATTERN, "Not a correct email"]
   },
-  photo: {
-    url: {type: String, default: "https://res.cloudinary.com/dctu91qjy/image/upload/v1569250272/sample.jpg"},
-    name: {type: String, default: "avatar"}
-  },
+  photo: {type: String, default: "https://res.cloudinary.com/dctu91qjy/image/upload/v1569250272/sample.jpg"},
   markers: [{ type : Schema.Types.ObjectId, ref: 'Place' }]
 }, {
   timestamps: {

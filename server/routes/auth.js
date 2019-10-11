@@ -18,15 +18,13 @@ const login = (req, user) => {
   })
 }
 
-router.post('/signup', upload.single("userPhoto"), (req, res, next) => {
+router.post('/signup', upload.single("photo"), (req, res, next) => {
 
   const {username, password, email} = req.body;
-  let originalname;
-  let url;
+  let photo;
 
   if (req.file) {
-    originalname = req.file.originalname;
-    url = req.file.url;
+    photo = req.file.photo;
   }
 
   if (!username || !password){
@@ -44,10 +42,7 @@ router.post('/signup', upload.single("userPhoto"), (req, res, next) => {
       username,
       password: hashPass,
       email,
-      photo: {
-        url,
-        name: originalname
-      },
+      photo,
     }).save();
   })
   .then( savedUser => login(req, savedUser)) // Login the user using passport

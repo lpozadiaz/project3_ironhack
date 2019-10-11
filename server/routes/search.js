@@ -14,7 +14,7 @@ router.get('/all', (req,res,next) => {
     .find()
     .select(selectionObject)
     .then(allPlaces => res.json(allPlaces))
-})
+});
 
 module.exports = router;
 

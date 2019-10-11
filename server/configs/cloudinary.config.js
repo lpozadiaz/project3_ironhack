@@ -13,7 +13,7 @@ const storage = cloudinaryStorage({
   folder: "tripTip",
   allowedFormats: ["jpg", "png", "svg"],
   function(req, file, cb) {
-    cb(null, file.originalname);
+    cb(null);
   }
 });
 

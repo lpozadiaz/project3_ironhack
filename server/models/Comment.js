@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 const commentSchema = new Schema(
   {
     authorID: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    text: String,
-    assessment: { type: Number, min: 0, max: 5 }
+    text: String
   },
   {
     timestamps: true
