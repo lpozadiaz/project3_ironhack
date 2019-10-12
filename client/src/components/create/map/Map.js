@@ -59,6 +59,8 @@ class AddMap extends Component {
 
   onClick = ({ x, y, lat, lng, event }) => console.log(x, y, lat, lng, event);
 
+  
+
   render() {
     const { latitude, longitude, zoom } = this.state;
 

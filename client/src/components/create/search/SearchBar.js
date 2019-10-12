@@ -116,7 +116,6 @@ class SearchBar extends React.Component {
                           <small>
                             {suggestion.formattedSuggestion.secondaryText}
                           </small>
-                        
                         </div>
                       );
                     })}
