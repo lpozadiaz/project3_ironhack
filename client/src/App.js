@@ -6,15 +6,13 @@ import Signup from "./components/auth/Signup";
 import Login from "./components/auth/Login";
 import AuthService from "./components/auth/AuthService";
 import Search from "./components/search/Search";
-import Map from "./components/map/Map";
+import Map from "./components/search/map/Map";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       loggedInUser: null,
-      latitude: null,
-      longitude: null
     };
     this.service = new AuthService();
 
@@ -52,22 +50,23 @@ class App extends Component {
     if (this.state.loggedInUser) {
       return (
         <React.Fragment>
-          <Redirect to="/home" />
-
-          <div className="container">
+          <Redirect to="/map" />
             <Navbar
               userInSession={this.state.loggedInUser}
               logout={this.logout}
             />
-            <Search />
             <Switch>
               <Route
                 exact
-                path="/map/:latitude/:longitude"
-                render={(props) => <Map {...props}/>}
+                path="/map"
+                render={() => <Search />}
               />
+              <Route
+              exact
+              path="/map/:latitude/:longitude"
+              render={props => <Map {...props} />}
+            />
             </Switch>
-          </div>
         </React.Fragment>
       );
     } else {
