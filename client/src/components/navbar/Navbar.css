@@ -4,6 +4,18 @@
 	align-items: center;
 }
 
-.nav-style li, .nav-style a {
-	color: black;
+.nav-style ul {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+}
+
+.nav-style li {
+  margin-right: 20px;
+  color: black
+}
+
+.nav-style a {
+  color: black;
+  text-decoration: underline !important;
 }

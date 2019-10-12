@@ -1,26 +1,10 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import axios from "axios";
+import { mapStyle } from "./MapStyle";
+import SearchBar from "../../create/search/SearchBar";
 
-const Marker = ({ text }) => (
-  <div
-    style={{
-      color: "white",
-      background: "grey",
-      padding: "15px 10px",
-      display: "inline-flex",
-      textAlign: "center",
-      alignItems: "center",
-      justifyContent: "center",
-      borderRadius: "100%",
-      transform: "translate(-50%, -50%)"
-    }}
-  >
-    {text}
-  </div>
-);
-
-class Map extends Component {
+class AddMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -48,8 +32,6 @@ class Map extends Component {
           longitude: null
         });
       });
-
-    this.getAll();
   }
 
   componentDidUpdate(prevProps) {
@@ -75,43 +57,38 @@ class Map extends Component {
       });
   };
 
-  onClick = ({x, y, lat, lng, event}) => console.log(x, y, lat, lng, event)
+  onClick = ({ x, y, lat, lng, event }) => console.log(x, y, lat, lng, event);
 
   render() {
-    const { latitude, longitude, zoom, places } = this.state;
+    const { latitude, longitude, zoom } = this.state;
 
     const center = {
       lat: +latitude,
       lng: +longitude
     };
 
-   
+    const mapOptions = {
+      styles: mapStyle
+    };
+
     return (
-      <div style={{ height: "70vh", width: "90%" }}>
-        {this.state.latitude && this.state.longitude && (
-          <GoogleMapReact
-            google={this.props.google}
-            center={center}
-            defaultZoom={zoom}
-            onClick={this.onClick}
-            
-            yesIWantToUseGoogleMapApiInternals={true}
-          >
-            {places.map(place => {
-              return (
-                <Marker
-                  key={`${place._id}`}
-                  lat={`${place.location.coordinates[1]}`}
-                  lng={`${place.location.coordinates[0]}`}
-                  text={`${place.name}`}
-                />
-              );
-            })}
-          </GoogleMapReact>
-        )}
+      <div className="container">
+        <SearchBar />
+        <div style={{ height: "70vh", width: "90%" }}>
+          {this.state.latitude && this.state.longitude && (
+            <GoogleMapReact
+              google={this.props.google}
+              center={center}
+              zoom={zoom}
+              options={mapOptions}
+              onClick={this.onClick}
+              yesIWantToUseGoogleMapApiInternals={true}
+            ></GoogleMapReact>
+          )}
+        </div>
       </div>
     );
   }
 }
 
-export default Map;
+export default AddMap;

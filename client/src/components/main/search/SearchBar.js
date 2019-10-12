@@ -5,8 +5,8 @@ import {
   getLatLng,
 } from 'react-places-autocomplete';
 import { classnames } from './searchHelpers';
-import "./Search.css";
 import { Redirect } from "react-router-dom";
+import './SearchBar.css';
 
 class SearchBar extends React.Component {
   constructor(props) {

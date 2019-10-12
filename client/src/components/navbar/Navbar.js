@@ -23,6 +23,9 @@ class Navbar extends Component {
       return (
         <nav className="nav-style">
           <ul>
+          <li>
+              <Link to="/place/add">Add a place</Link>
+            </li>
             <li>
               <a onClick={this.handleLogout}>Logout</a>
             </li>

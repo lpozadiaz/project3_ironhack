@@ -2,8 +2,7 @@ import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
 import axios from "axios";
 import { mapStyle } from "./MapStyle";
-import SearchBar from "../SearchBar";
-import "../../../App.css";
+import SearchBar from "../search/SearchBar";
 
 const Marker = ({ text }) => (
   <div
@@ -23,7 +22,7 @@ const Marker = ({ text }) => (
   </div>
 );
 
-class Map extends Component {
+class SearchMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -123,4 +122,4 @@ class Map extends Component {
   }
 }
 
-export default Map;
+export default SearchMap;

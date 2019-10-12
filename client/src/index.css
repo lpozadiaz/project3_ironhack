@@ -13,18 +13,3 @@ code {
     monospace;
 }
 
-.nav-style ul {
-  display: flex;
-  list-style: none;
-  justify-content: center;
-}
-
-.nav-style li {
-  margin-right: 20px;
-  color: white;
-}
-
-.nav-style a {
-  color: white;
-  text-decoration: underline !important;
-}
