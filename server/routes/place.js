@@ -1,50 +1,70 @@
-const express = require('express');
-const router  = express.Router();
-const Place = require('../models/Place');
-const Comment = require('../models/Comment');
+const express = require("express");
+const router = express.Router();
+const Place = require("../models/Place");
+const Comment = require("../models/Comment");
+const User = require("../models/User");
 
-const selectionObject = {
-  "_id": true,
-  "name": true,
-  "location": true,
-  "address": true
-}
+router.post("/create", (req, res, next) => {
+  const { address, latitude, longitude } = req.body;
 
-router.post('/create', upload.single("placePhoto"), (req, res, next) => {
+  Place.findOne({ address })
+    .then(foundLocation => {
+      if (foundLocation) {
+        User.findByIdAndUpdate(req.user._id, {
+          $push: { markers: foundLocation._id }
+        }).then(() => {
+          return;
+        });
+      }
 
-  const {username, password, email} = req.body;
-  let originalname;
-  let url;
+      return new Place({
+        address,
+        location: {
+          coordinates: [longitude, latitude],
+          type: "Point"
+        }
+      })
+        .save()
+        .then(newPlace => {
+          User.findByIdAndUpdate(req.user._id, {
+            $push: { markers: newPlace._id }
+          }).then(placeAdded => {
+            return;
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    })
 
-  if (req.file) {
-    originalname = req.file.originalname;
-    url = req.file.url;
+    .then(place => res.json({ status: "Place created", place }))
+    .catch(e => next(e));
+});
+
+router.post("/:placeid/new-comment", (req, res, next) => {
+  let { text } = req.body;
+  let { placeid } = req.params;
+
+  if (!text) {
+    res.redirect("/place/new-comment?error=empty-fields");
+    return;
   }
 
-  Place.findOne({ location })
-  .then( foundLocation => {
-    if (foundLocation) {
-      return new Comment({
-
-      })
-    };
-
-    
-
-    return new Place({
-      username,
-      password: hashPass,
-      email,
-      photo: {
-        url,
-        name: originalname
-      },
-    }).save();
+  return new Comment({
+    text,
+    authorId: req.user._id
   })
-  .then( savedUser => login(req, savedUser)) // Login the user using passport
-  .then( user => res.json({status: 'signup & login successfully', user})) // Answer JSON
-  .catch(e => next(e));
+    .then(newComment => {
+      Place.findByIdAndUpdate(_id, {
+        $push: { comments: newComment._id }
+      }).then(commentAdded => {
+        res.redirect(`/place/${placeid}`);
+        return;
+      });
+    })
+    .catch(error => {
+      console.log(error);
+    });
 });
 
 module.exports = router;
-

@@ -18,7 +18,6 @@ class AuthService {
     .then(response => response.data)
   }
   
-
   loggedin = () => {
     return this.service.get('/currentUser',)
     .then(response => response.data)
@@ -28,7 +27,6 @@ class AuthService {
     return this.service.get('/logout',)
     .then(response => response.data)
   }
-
 }
 
 export default AuthService;
