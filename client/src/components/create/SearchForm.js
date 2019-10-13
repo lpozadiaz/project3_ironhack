@@ -1,19 +1,17 @@
-import React from 'react';
-import PlacesAutocomplete from 'react-places-autocomplete';
-import {
-  geocodeByAddress,
-  getLatLng,
-} from 'react-places-autocomplete';
-import { classnames } from './searchHelpers';
-import { Redirect } from "react-router-dom";
-import './SearchBar.css';
+import React from "react";
+import PlacesAutocomplete from "react-places-autocomplete";
+import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
+import { classnames } from "./searchHelpers";
+import "./SearchBar.css";
+import Map from "./map/Map";
+import AddForm from "./form/AddForm";
 
-class SearchBar extends React.Component {
+class SearchForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      address: '',
-      errorMessage: '',
+      address: "",
+      errorMessage: "",
       latitude: null,
       longitude: null,
       isGeocoding: false,
@@ -25,7 +23,7 @@ class SearchBar extends React.Component {
       address,
       latitude: null,
       longitude: null,
-      errorMessage: '',
+      errorMessage: ""
     });
   };
 
@@ -40,22 +38,24 @@ class SearchBar extends React.Component {
           isGeocoding: false,
         });
       })
+
       .catch(error => {
         this.setState({ isGeocoding: false });
-        console.log('error', error);
+        console.log("error", error);
       });
+  
   };
 
   handleCloseClick = () => {
     this.setState({
-      address: '',
+      address: "",
       latitude: null,
-      longitude: null,
+      longitude: null
     });
   };
 
   handleError = (status, clearSuggestions) => {
-    console.log('Error from Google Maps API', status); 
+    console.log("Error from Google Maps API", status);
     this.setState({ errorMessage: status }, () => {
       clearSuggestions();
     });
@@ -78,7 +78,6 @@ class SearchBar extends React.Component {
           onSelect={this.handleSelect}
           onError={this.handleError}
           shouldFetchSuggestions={address.length > 2}
-          
         >
           {({ getInputProps, suggestions, getSuggestionItemProps }) => {
             return (
@@ -86,8 +85,8 @@ class SearchBar extends React.Component {
                 <div className="Demo__search-input-container">
                   <input
                     {...getInputProps({
-                      placeholder: 'Search Places...',
-                      className: 'Demo__search-input',
+                      placeholder: "Search Places...",
+                      className: "Demo__search-input"
                     })}
                   />
                   {this.state.address.length > 0 && (
@@ -102,17 +101,17 @@ class SearchBar extends React.Component {
                 {suggestions.length > 0 && (
                   <div className="Demo__autocomplete-container">
                     {suggestions.map(suggestion => {
-                      const className = classnames('Demo__suggestion-item', {
-                        'Demo__suggestion-item--active': suggestion.active,
+                      const className = classnames("Demo__suggestion-item", {
+                        "Demo__suggestion-item--active": suggestion.active
                       });
 
                       return (
                         <div
                           {...getSuggestionItemProps(suggestion, { className })}
                         >
-                            <strong>
+                          <strong>
                             {suggestion.formattedSuggestion.mainText}
-                          </strong>{' '}
+                          </strong>{" "}
                           <small>
                             {suggestion.formattedSuggestion.secondaryText}
                           </small>
@@ -129,14 +128,14 @@ class SearchBar extends React.Component {
           <div className="Demo__error-message">{this.state.errorMessage}</div>
         )}
 
-        {((latitude && longitude) || isGeocoding) && (
+        {((address && latitude && longitude) || isGeocoding) && (
           <div>
             {isGeocoding ? (
-              <div>
-              </div>
+              <div></div>
             ) : (
               <div>
-                <Redirect to={'/place/add/'+latitude+'/'+longitude}/>
+                <Map latitude={latitude} longitude={longitude} />
+                <AddForm address={address} latitude={latitude} longitude={longitude}/>
               </div>
             )}
           </div>
@@ -146,4 +145,4 @@ class SearchBar extends React.Component {
   }
 }
 
-export default SearchBar;
+export default SearchForm;
