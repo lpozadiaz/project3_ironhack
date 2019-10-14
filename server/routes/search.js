@@ -25,7 +25,7 @@ router.get('/all', (req,res,next) => {
 });
 
 router.get("/:id", (req, res, next) => {
-  User.findById(req.user._id)
+  User.findById(req.params.id)
     .populate("markers")
     .populate({ path: "markers", populate: { path: "comments" } })
     .select(userObject)

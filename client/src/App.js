@@ -66,7 +66,7 @@ class App extends Component {
                 render={props => <SearchMap {...props} />}
               />
               <Route exact path="/place/add" render={() => <SearchForm />} />
-              <Route exact path="/profile/:id" render={() => <ProfileIndex />} />
+              <Route exact path="/profile/:id" render={(props) => <ProfileIndex {...props}/>} />
             </Switch>
           </div>
         </React.Fragment>

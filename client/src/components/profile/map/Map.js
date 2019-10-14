@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
-import axios from "axios";
+
 import { mapStyle } from "./MapStyle";
 
 const Marker = ({ text }) => (
@@ -21,6 +21,7 @@ const Marker = ({ text }) => (
   </div>
 );
 
+
 class ProfileMap extends Component {
   constructor(props) {
     super(props);
@@ -28,20 +29,9 @@ class ProfileMap extends Component {
       latitude: 40,
       longitude: -3.7,
       zoom: 0,
-      places: []
+      places: this.props.places
     };
   }
-
-  getAll = () => {
-    axios
-      .get(`http://localhost:3010/api/search/:id`)
-
-      .then(apiData => {
-        this.setState({
-          places: apiData.data
-        });
-      });
-  };
 
   // onClick = ({ x, y, lat, lng, event }) => console.log(x, y, lat, lng, event);
 
@@ -61,6 +51,7 @@ class ProfileMap extends Component {
       <div
         className="container"
       >
+
         <div style={{ height: "70vh", width: "90%" }}>
           <GoogleMapReact
             google={this.props.google}
