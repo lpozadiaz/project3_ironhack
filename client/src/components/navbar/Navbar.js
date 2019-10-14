@@ -23,13 +23,13 @@ class Navbar extends Component {
       return (
         <nav className="nav-style">
           <ul>
-          <li>
+            <li>
               <Link to="/place/add">Add a place</Link>
             </li>
             <li>
               <a onClick={this.handleLogout}>Logout</a>
             </li>
-            <li>Welcome {this.state.loggedInUser.username}</li>
+            <li><Link to={'/profile/'+this.state.loggedInUser._id}>Your profile, {this.state.loggedInUser.username}</Link></li>
           </ul>
         </nav>
       );

@@ -8,7 +8,7 @@ import Login from "./components/auth/Login";
 import SearchIndex from "./components/main/index";
 import SearchMap from "./components/main/map/Map";
 import SearchForm from "./components/create/SearchForm";
-import CommentForm from "./components/create/form/CommentForm";
+import ProfileIndex from "./components/profile/index";
 
 class App extends Component {
   constructor(props) {
@@ -66,7 +66,7 @@ class App extends Component {
                 render={props => <SearchMap {...props} />}
               />
               <Route exact path="/place/add" render={() => <SearchForm />} />
-              <Route exact path="/place/:placeid/new-comment" render={() => <CommentForm />} />
+              <Route exact path="/profile/:id" render={() => <ProfileIndex />} />
             </Switch>
           </div>
         </React.Fragment>

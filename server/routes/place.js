@@ -5,15 +5,29 @@ const Comment = require("../models/Comment");
 const User = require("../models/User");
 
 router.post("/create", (req, res, next) => {
-  const { address, latitude, longitude } = req.body;
+  const { address, latitude, longitude, comment } = req.body;
 
   Place.findOne({ address })
     .then(foundLocation => {
       if (foundLocation) {
         User.findByIdAndUpdate(req.user._id, {
           $push: { markers: foundLocation._id }
-        }).then(() => {
-          return;
+        }).then(newPlace => {
+          return new Comment({
+            text: comment,
+            authorId: req.user._id
+          })
+            .save()
+            .then(newComment => {
+              Place.findOneAndUpdate(
+                { address },
+                {
+                  $push: { comments: newComment._id }
+                }
+              ).then(commentAdded => {
+                return;
+              });
+            });
         });
       }
 
@@ -28,8 +42,22 @@ router.post("/create", (req, res, next) => {
         .then(newPlace => {
           User.findByIdAndUpdate(req.user._id, {
             $push: { markers: newPlace._id }
-          }).then(placeAdded => {
-            return;
+          }).then(newPlace => {
+            return new Comment({
+              text: comment,
+              authorId: req.user._id
+            })
+              .save()
+              .then(newComment => {
+                Place.findOneAndUpdate(
+                  { address },
+                  {
+                    $push: { comments: newComment._id }
+                  }
+                ).then(commentAdded => {
+                  return;
+                });
+              });
           });
         })
         .catch(error => {
@@ -39,32 +67,6 @@ router.post("/create", (req, res, next) => {
 
     .then(place => res.json({ status: "Place created", place }))
     .catch(e => next(e));
-});
-
-router.post("/:placeid/new-comment", (req, res, next) => {
-  let { text } = req.body;
-  let { placeid } = req.params;
-
-  if (!text) {
-    res.redirect("/place/new-comment?error=empty-fields");
-    return;
-  }
-
-  return new Comment({
-    text,
-    authorId: req.user._id
-  })
-    .then(newComment => {
-      Place.findByIdAndUpdate(_id, {
-        $push: { comments: newComment._id }
-      }).then(commentAdded => {
-        res.redirect(`/place/${placeid}`);
-        return;
-      });
-    })
-    .catch(error => {
-      console.log(error);
-    });
 });
 
 module.exports = router;

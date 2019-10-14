@@ -1,18 +1,34 @@
 const express = require('express');
 const router  = express.Router();
 const Place = require('../models/Place');
+const User = require('../models/User')
 
-const selectionObject = {
+const placeObject = {
   "_id": true,
   "name": true,
   "location": true,
   "address": true
 }
 
+const userObject = {
+  "_id": true,
+  "username": true,
+  "markers": true,
+  "photo": true
+}
+
 router.get('/all', (req,res,next) => {
   Place
     .find()
-    .select(selectionObject)
+    .select(placeObject)
+    .then(allPlaces => res.json(allPlaces))
+});
+
+router.get("/:id", (req, res, next) => {
+  User.findById(req.user._id)
+    .populate("markers")
+    .populate({ path: "markers", populate: { path: "comments" } })
+    .select(userObject)
     .then(allPlaces => res.json(allPlaces))
 });
 
