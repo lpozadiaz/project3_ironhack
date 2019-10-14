@@ -1,3 +1,7 @@
+app.use((req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+  });
+  
 require('dotenv').config();
 
 const bodyParser = require('body-parser');
