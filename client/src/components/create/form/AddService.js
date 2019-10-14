@@ -8,15 +8,11 @@ class AddService {
     });
   }
 
-  create = (address, latitude, longitude) => {
-    return this.service.post('/create', {address, latitude, longitude})
+  create = (address, latitude, longitude, comment) => {
+    return this.service.post('/create', {address, latitude, longitude, comment})
     .then(response => response.data)
   }
 
-  comment = (comment) => {
-    return this.service.post('/:placeid/new-comment', {comment})
-    .then(response => response.data)
-  }
 }
 
 export default AddService;

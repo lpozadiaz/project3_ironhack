@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
-import axios from "axios";
+
 import { mapStyle } from "./MapStyle";
-import SearchBar from "../search/SearchBar";
 
 const Marker = ({ text }) => (
   <div
@@ -22,60 +21,17 @@ const Marker = ({ text }) => (
   </div>
 );
 
-class SearchMap extends Component {
+
+class ProfileMap extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      latitude: null,
-      longitude: null,
-      zoom: 11,
-      places: []
+      latitude: 40,
+      longitude: -3.7,
+      zoom: 0,
+      places: this.props.places
     };
   }
-
-  componentDidMount() {
-    const latitude = this.props.match.params.latitude;
-    const longitude = this.props.match.params.longitude;
-
-    fetch(`/map/${latitude}/${longitude}`)
-      .then(response => {
-        this.setState({
-          latitude: latitude,
-          longitude: longitude
-        });
-      })
-      .catch(err => {
-        this.setState({
-          latitude: null,
-          longitude: null
-        });
-      });
-
-    this.getAll();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (
-      this.props.match.params.latitude !== prevProps.match.params.latitude &&
-      this.props.match.params.longitude !== prevProps.match.params.longitude
-    ) {
-      this.setState({
-        latitude: this.props.match.params.latitude,
-        longitude: this.props.match.params.longitude
-      });
-    }
-  }
-
-  getAll = () => {
-    axios
-      .get(`http://localhost:3010/api/search/all`)
-
-      .then(apiData => {
-        this.setState({
-          places: apiData.data
-        });
-      });
-  };
 
   // onClick = ({ x, y, lat, lng, event }) => console.log(x, y, lat, lng, event);
 
@@ -95,7 +51,7 @@ class SearchMap extends Component {
       <div
         className="container"
       >
-        <SearchBar />
+
         <div style={{ height: "70vh", width: "90%" }}>
           <GoogleMapReact
             google={this.props.google}
@@ -121,4 +77,4 @@ class SearchMap extends Component {
   }
 }
 
-export default SearchMap;
+export default ProfileMap;
