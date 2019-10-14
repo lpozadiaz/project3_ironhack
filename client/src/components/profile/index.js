@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import ProfileMap from "./map/Map";
+import List from "./list/List";
 import axios from "axios";
 
 export default class ProfileIndex extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-      userId: null,
-    }
+      userId: null
+    };
   }
 
   componentDidMount() {
@@ -16,15 +17,15 @@ export default class ProfileIndex extends Component {
     fetch(`/profile/${userId}`)
       .then(response => {
         this.setState({
-          userId: userId,
-        })
+          userId: userId
+        });
       })
       .catch(err => {
         this.setState({
-          userId: null,
+          userId: null
         });
       });
-    
+
     this.getInfo();
   }
 
@@ -32,22 +33,24 @@ export default class ProfileIndex extends Component {
     const userId = this.props.match.params.id;
     axios
       .get(`http://localhost:3010/api/search/${userId}`)
-      
+
       .then(apiData => {
         this.setState({
           places: apiData.data.markers
         });
       });
-     
   };
 
   render() {
-    return ( 
+    return (
       <div>
-      {(this.state.userId && this.state.places) && (
-        <ProfileMap places={this.state.places}/>)
-      }
+        {this.state.userId && this.state.places && (
+          <div>
+            <ProfileMap places={this.state.places} />
+            <List places={this.state.places} />
+          </div>
+        )}
       </div>
-    )
+    );
   }
 }

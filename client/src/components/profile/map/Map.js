@@ -33,7 +33,7 @@ class ProfileMap extends Component {
     };
   }
 
-  // onClick = ({ x, y, lat, lng, event }) => console.log(x, y, lat, lng, event);
+  onClick = ({ x, y, lat, lng, event }) => console.log(x, y, lat, lng, event);
 
   render() {
     const { latitude, longitude, zoom, places } = this.state;

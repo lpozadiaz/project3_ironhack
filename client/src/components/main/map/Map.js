@@ -91,6 +91,8 @@ class SearchMap extends Component {
       styles: mapStyle
     };
 
+    console.log(places)
+
     return (
       <div
         className="container"
