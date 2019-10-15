@@ -32,7 +32,7 @@ export default class ProfileIndex extends Component {
   getInfo = () => {
     const userId = this.props.match.params.id;
     axios
-      .get(`http://localhost:3010/api/search/${userId}`)
+      .get(`${process.env.REACT_APP_URL}/api/search/${userId}`)
 
       .then(apiData => {
         this.setState({

@@ -68,7 +68,7 @@ class SearchMap extends Component {
 
   getAll = () => {
     axios
-      .get(`http://localhost:3010/api/search/all`)
+      .get(`${process.env.REACT_APP_URL}/api/search/all`)
 
       .then(apiData => {
         this.setState({
