@@ -9,6 +9,7 @@ export default class AddForm extends Component {
       longitude: this.props.longitude,
       address: this.props.address,
       comment: "",
+      type: "",
       placeCreated: null
     };
     this.service = new AddService();
@@ -20,9 +21,10 @@ export default class AddForm extends Component {
     const longitude = this.state.longitude;
     const address = this.state.address;
     const comment = this.state.comment;
+    const type = this.state.type;
 
     this.service
-      .create(address, latitude, longitude, comment)
+      .create(address, latitude, longitude, comment, type)
       .then(response => {
         this.setState({
           comment: "",
@@ -50,6 +52,12 @@ export default class AddForm extends Component {
         <div>
           <form onSubmit={this.handleFormSubmit}>
             <fieldset>
+              <label>Type:</label>
+              <select type="text" name="type" value={this.state.type} onChange={e => this.handleChange(e)}>
+                <option value="Eat">Eat</option>
+                <option value="Sleep">Sleep</option>
+                <option value="See">See</option>
+              </select>
               <label>Tip:</label>
               <input
                 type="text"

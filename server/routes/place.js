@@ -5,7 +5,7 @@ const Comment = require("../models/Comment");
 const User = require("../models/User");
 
 router.post("/create", (req, res, next) => {
-  const { address, latitude, longitude, comment } = req.body;
+  const { address, latitude, longitude, comment, type } = req.body;
 
   Place.findOne({ address })
     .then(foundLocation => {
@@ -33,6 +33,7 @@ router.post("/create", (req, res, next) => {
 
       return new Place({
         address,
+        type,
         location: {
           coordinates: [longitude, latitude],
           type: "Point"

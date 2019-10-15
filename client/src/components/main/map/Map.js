@@ -3,6 +3,7 @@ import GoogleMapReact from "google-map-react";
 import axios from "axios";
 import { mapStyle } from "./MapStyle";
 import SearchBar from "../search/SearchBar";
+import List from "../list/List";
 
 const Marker = ({ text }) => (
   <div
@@ -68,7 +69,8 @@ class SearchMap extends Component {
 
   getAll = () => {
     axios
-      .get(`${process.env.REACT_APP_URL}/api/search/all`)
+      // .get(`${process.env.REACT_APP_URL}/api/search/all`)
+      .get(`http://localhost:3010/api/search/all`)
 
       .then(apiData => {
         this.setState({
@@ -94,9 +96,7 @@ class SearchMap extends Component {
     console.log(places)
 
     return (
-      <div
-        className="container"
-      >
+      <div className="container" >
         <SearchBar />
         <div style={{ height: "70vh", width: "90%" }}>
           <GoogleMapReact
@@ -118,6 +118,18 @@ class SearchMap extends Component {
             })}
           </GoogleMapReact>
         </div>
+        {places.map(place => {
+          return (
+            <div key={place._id}>
+              <p>{place.address}</p>
+              {place.comments.map(comment => {
+                return <p key={comment._id}>{comment.authorId.map(author => {
+                  return <span key={author._id}>{author.username}: </span>;
+                })} {comment.text}</p>;
+              })}
+            </div>
+          );
+        })}
       </div>
     );
   }

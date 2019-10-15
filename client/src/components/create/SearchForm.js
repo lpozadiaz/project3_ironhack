@@ -43,7 +43,7 @@ class SearchForm extends React.Component {
         this.setState({ isGeocoding: false });
         console.log("error", error);
       });
-  
+    
   };
 
   handleCloseClick = () => {
