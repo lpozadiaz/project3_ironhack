@@ -70,6 +70,11 @@ class SearchForm extends React.Component {
       isGeocoding,
     } = this.state;
 
+    const searchOptions = {
+      language: "es",
+      types: ["(cities)"]
+    };
+
     return (
       <div>
         <PlacesAutocomplete
@@ -77,6 +82,7 @@ class SearchForm extends React.Component {
           value={address}
           onSelect={this.handleSelect}
           onError={this.handleError}
+          searchOptions={searchOptions}
           shouldFetchSuggestions={address.length > 2}
         >
           {({ getInputProps, suggestions, getSuggestionItemProps }) => {

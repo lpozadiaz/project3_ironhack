@@ -79,6 +79,7 @@ class SearchBar extends React.Component {
     } = this.state;
 
     const searchOptions = {
+      language: "es",
       types: ["(cities)"]
     };
 

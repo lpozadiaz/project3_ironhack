@@ -80,6 +80,8 @@ class SearchMap extends Component {
         city: city,
         country: country
       });
+
+      this.getAll();
     }
   }
 
@@ -90,7 +92,9 @@ class SearchMap extends Component {
 
       .then(apiData => {
         this.setState({
-          places: apiData.data
+          places: apiData.data.filter(place =>
+            place.address.toLowerCase().includes(this.state.city.toLowerCase())
+          )
         });
       });
   };
