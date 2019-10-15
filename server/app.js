@@ -1,6 +1,4 @@
-app.use((req, res) => {
-  res.sendFile(__dirname + "/public/index.html");
-  });
+
   
 require('dotenv').config();
 
@@ -70,4 +68,9 @@ app.use('/api/search', searchRouter);
 const placeRouter = require('./routes/place');
 app.use('/api/place', placeRouter);
 
+app.use((req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+  });
+
+  
 module.exports = app;
