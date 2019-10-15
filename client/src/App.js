@@ -62,7 +62,7 @@ class App extends Component {
               <Route exact path="/home" render={() => <SearchIndex />} />
               <Route
                 exact
-                path="/map/:latitude/:longitude"
+                path="/map/:latitude/:longitude/:city/:country"
                 render={props => <SearchMap {...props} />}
               />
               <Route exact path="/place/add" render={() => <SearchForm />} />
