@@ -66,7 +66,11 @@ class App extends Component {
                 render={props => <SearchMap {...props} />}
               />
               <Route exact path="/place/add" render={() => <SearchForm />} />
-              <Route exact path="/profile/:id" render={(props) => <ProfileIndex {...props}/>} />
+              <Route
+                exact
+                path="/profile/:id"
+                render={props => <ProfileIndex {...props} />}
+              />
             </Switch>
           </div>
         </React.Fragment>
@@ -74,7 +78,7 @@ class App extends Component {
     } else {
       return (
         <React.Fragment>
-          <Redirect to="/login" />
+          <Redirect to="/home" />
 
           <div className="App">
             <Navbar
@@ -82,6 +86,12 @@ class App extends Component {
               logout={this.logout}
             />
             <Switch>
+              <Route exact path="/home" render={() => <SearchIndex />} />
+              <Route
+                exact
+                path="/map/:latitude/:longitude/:city/:country"
+                render={props => <SearchMap {...props} />}
+              />
               <Route
                 exact
                 path="/signup"

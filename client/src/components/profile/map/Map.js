@@ -1,26 +1,20 @@
 import React, { Component } from "react";
 import GoogleMapReact from "google-map-react";
-
 import { mapStyle } from "./MapStyle";
+import Marker from "../../elements/Marker";
 
-const Marker = ({ text }) => (
+const getInfoWindowString = place => (`
   <div
     style={{
-      color: "white",
-      background: "grey",
-      padding: "15px 10px",
-      display: "inline-flex",
-      textAlign: "center",
-      alignItems: "center",
-      justifyContent: "center",
-      borderRadius: "50%",
-      transform: "translate(-50%, -50%)"
+      width: "200px",
+      height: "200px"
     }}
   >
-    {text}
-  </div>
+    <div style="font-size: 16px;">${place.address}</div>
+  </div>`
 );
 
+// Refer to https://github.com/google-map-react/google-map-react#use-google-maps-api
 
 class ProfileMap extends Component {
   constructor(props) {
@@ -33,7 +27,36 @@ class ProfileMap extends Component {
     };
   }
 
-  onClick = ({ x, y, lat, lng, event }) => console.log(x, y, lat, lng, event);
+  // onClick = ({ x, y, lat, lng, event }) => console.log(x, y, lat, lng, event);
+
+  handleApiLoaded = (map, maps, places) => {
+    const markers = [];
+    const infowindows = [];
+
+    places.forEach(place => {
+      markers.push(
+        new maps.Marker({
+          position: {
+            lat: place.location.coordinates[1],
+            lng: place.location.coordinates[0]
+          },
+          map
+        })
+      );
+
+      infowindows.push(
+        new maps.InfoWindow({
+          content: getInfoWindowString(place)
+        })
+      );
+    });
+
+    markers.forEach((marker, i) => {
+      marker.addListener("click", () => {
+        infowindows[i].open(map, marker);
+      });
+    });
+  };
 
   render() {
     const { latitude, longitude, zoom, places } = this.state;
@@ -48,30 +71,42 @@ class ProfileMap extends Component {
     };
 
     return (
-      <div
-        className="container"
-      >
-
-        <div style={{ height: "70vh", width: "90%" }}>
+      // <div
+      //   className="container"
+      // >
+      //   <div style={{ height: "70vh", width: "90%" }}>
+      //     <GoogleMapReact
+      //       google={this.props.google}
+      //       center={center}
+      //       defaultZoom={zoom}
+      //       options={mapOptions}
+      //       // onClick={this.onClick}
+      //       yesIWantToUseGoogleMapApiInternals={true}
+      //       onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps, places)}
+      //     >
+      //       {places.map(place => {
+      //         return (
+      //           <Marker
+      //             key={`${place._id}`}
+      //             lat={`${place.location.coordinates[1]}`}
+      //             lng={`${place.location.coordinates[0]}`}
+      //           />
+      //         );
+      //       })}
+      //     </GoogleMapReact>
+      //   </div>
+      // </div>
+      <div style={{ height: "70vh", width: "90%" }}>
+        {places && (
           <GoogleMapReact
-            google={this.props.google}
-            center={center}
-            defaultZoom={zoom}
-            options={mapOptions}
-            // onClick={this.onClick}
-            yesIWantToUseGoogleMapApiInternals={true}
-          >
-            {places.map(place => {
-              return (
-                <Marker
-                  key={`${place._id}`}
-                  lat={`${place.location.coordinates[1]}`}
-                  lng={`${place.location.coordinates[0]}`}
-                />
-              );
-            })}
-          </GoogleMapReact>
-        </div>
+            defaultZoom={10}
+            defaultCenter={center}
+            yesIWantToUseGoogleMapApiInternals
+            onGoogleApiLoaded={({ map, maps }) =>
+              this.handleApiLoaded(map, maps, places)
+            }
+          />
+        )}
       </div>
     );
   }
