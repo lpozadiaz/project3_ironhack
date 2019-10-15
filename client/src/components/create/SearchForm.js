@@ -72,7 +72,6 @@ class SearchForm extends React.Component {
 
     const searchOptions = {
       language: "es",
-      types: ["(cities)"]
     };
 
     return (

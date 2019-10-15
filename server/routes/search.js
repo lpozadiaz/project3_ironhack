@@ -7,7 +7,8 @@ const placeObject = {
   _id: true,
   name: true,
   location: true,
-  address: true
+  address: true,
+  type: true
 };
 
 const userObject = {

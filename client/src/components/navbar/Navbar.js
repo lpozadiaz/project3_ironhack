@@ -23,6 +23,9 @@ class Navbar extends Component {
       return (
         <nav className="nav-style">
           <ul>
+          <li>
+              <Link to="/home">Home</Link>
+            </li>
             <li>
               <Link to="/place/add">Add a place</Link>
             </li>

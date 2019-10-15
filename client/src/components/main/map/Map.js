@@ -100,14 +100,14 @@ class SearchMap extends Component {
   };
 
   // onClick = ({ x, y, lat, lng, event }) => console.log(x, y, lat, lng, event);
-  // selectType(e) {
-  //   let newPlaces = {...this.state.places};
-  //   let searchWord = e.target.value;
-  //   let filteredFoods = newFoods.newFoodsArr.filter(food => food.name.toLowerCase().includes(searchWord.toLowerCase()))
-  //   newFoods.foods = filteredFoods
-  //   this.setState (newFoods)
-
-  // }
+  selectType(e) {
+    let newPlaces = this.state.places;
+    let searchType = e.target.value;
+    let filterPlaces = newPlaces.filter(place =>
+      place.type.toLowerCase().includes(searchType.toLowerCase())
+    );
+    this.setState({ places: filterPlaces });
+  }
 
   render() {
     const { latitude, longitude, zoom, places, city, country } = this.state;
@@ -127,6 +127,68 @@ class SearchMap extends Component {
     return (
       <div className="container">
         <SearchBar />
+        {/* <-- Whatsapp --> */}
+        <a
+          href={
+            "whatsapp://send?text=Visita%20mis%20recomendaciones%20https://tipafriend.herokuapp.com/map/" +
+            latitude +
+            "/" +
+            longitude +
+            "/" +
+            city +
+            "/" +
+            country
+          }
+          target="_blank"
+        >
+          Whatsapp
+        </a>
+        {/* <-- Facebook --> */}
+        <a
+          href={
+            "http://www.facebook.com/sharer.php?u=https://tipafriend.herokuapp.com/map/" +
+            latitude +
+            "/" +
+            longitude +
+            "/" +
+            city +
+            "/" +
+            country
+          }
+          target="_blank"
+        >
+          Facebook
+        </a>
+
+        {/* <!-- Twitter --> */}
+        <a
+          href={
+            "https://twitter.com/share?url=https://tipafriend.herokuapp.com/map/" +
+            latitude +
+            "/" +
+            longitude +
+            "/" +
+            city +
+            "/" +
+            country
+          }
+          target="_blank"
+        >
+          Twitter
+        </a>
+        {/* <!-- Email --> */}
+        <a href={"mailto:?Subject=Visita%20mis%20recomendaciones%20&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://tipafriend.herokuapp.com/map/" +
+            latitude +
+            "/" +
+            longitude +
+            "/" +
+            city +
+            "/" +
+            country
+          }>
+          Email
+        </a>
+
         <div style={{ height: "70vh", width: "90%" }}>
           <GoogleMapReact
             google={this.props.google}
@@ -147,6 +209,13 @@ class SearchMap extends Component {
             })}
           </GoogleMapReact>
         </div>
+
+        <input
+          type="search"
+          defaultValue=""
+          onChange={e => this.selectType(e)}
+        />
+
         {places.map(place => {
           return (
             <div key={place._id}>

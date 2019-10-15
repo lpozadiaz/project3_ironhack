@@ -7,7 +7,8 @@ export default class ProfileIndex extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: null
+      userId: null,
+      places: null,
     };
   }
 
