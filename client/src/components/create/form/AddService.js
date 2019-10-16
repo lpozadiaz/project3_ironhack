@@ -14,6 +14,16 @@ class AddService {
     .then(response => response.data)
   }
 
+  update = (comment, commentId) => {
+    return this.service.put('/edit', {comment, commentId})
+    .then(response => response.data)
+  }
+
+  delete = (placeId, commentId) => {
+    return this.service.put('/delete', {placeId, commentId})
+    .then(response => response.data)
+  }
+
 }
 
 export default AddService;

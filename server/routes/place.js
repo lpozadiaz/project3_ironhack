@@ -70,4 +70,38 @@ router.post("/create", (req, res, next) => {
     .catch(e => next(e));
 });
 
+router.put("/edit", (req, res, next) => {
+  const comment = req.body.comment;
+  const commentId = req.body.commentId;
+  // if (!comment) {
+  //   next(new Error("You have to fill this field."));
+  // }
+
+  Comment.findOneAndUpdate(commentId, { text: comment})
+    .then(commentUpdate => res.json({ status: "Comment updated", commentUpdate }))
+
+    .catch(e => next(e));
+});
+
+router.put("/delete", (req, res, next) => {
+  const placeId = req.body.placeId;
+  const commentId = req.body.commentId;
+
+  Comment.findByIdAndDelete(commentId._id)
+    .then(commentDeleted => {
+      User.findByIdAndUpdate(
+        req.user._id,
+        {
+          $pull: { markers: placeId }
+        },
+        { new: true }
+      )
+        .then(userUpdated => {
+          return;
+        })
+        .catch(e => next(e));
+    })
+    .catch(e => next(e));
+});
+
 module.exports = router;

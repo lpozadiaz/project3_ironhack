@@ -122,7 +122,7 @@ class SearchMap extends Component {
   componentDidUpdate(prevProps) {
     if (
       this.props.match.params.latitude !== prevProps.match.params.latitude &&
-      this.props.match.params.longitude !== prevProps.match.params.longitude
+      this.props.match.params.longitude !== prevProps.match.params.longitude 
     ) {
       const cityParams = this.props.match.params.city;
       const countryParams = this.props.match.params.country;
@@ -141,6 +141,7 @@ class SearchMap extends Component {
   }
 
   getAll = () => {
+    this.setState({places:null})
     axios
       // .get(`${process.env.REACT_APP_URL}/api/search/all`)
       .get(`http://localhost:3010/api/search/all`)
@@ -148,7 +149,7 @@ class SearchMap extends Component {
       .then(apiData => {
         this.setState({
           places: apiData.data.filter(place =>
-            place.address.toLowerCase().includes(this.state.city.toLowerCase())
+            place.address.toLowerCase().includes(this.state.city.toLowerCase(), place.comments)
           )
         });
       });
