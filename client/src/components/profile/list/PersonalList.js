@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
-export default class List extends Component {
+export default class PersonalList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -9,7 +10,8 @@ export default class List extends Component {
       displaySee: false,
       displaySleep: false,
       displayEat: false,
-      city: this.props.city
+      city: this.props.city,
+      userId: this.props.userId
     };
   }
 
@@ -140,7 +142,7 @@ export default class List extends Component {
           this.state.places.map(place => {
             return (
               <div key={place._id}>
-                <p>{place.address}</p>
+                <Link to={'/myprofile/'+userId+'/'+place._id}>{place.address}</Link>
                 {place.comments.map(comment => {
                   return <p key={comment._id}>Comment: {comment.text}</p>;
                 })}
@@ -156,7 +158,7 @@ export default class List extends Component {
             .map(place => {
               return (
                 <div key={place._id}>
-                  <p>{place.address}</p>
+                  <Link to={'/myprofile/'+userId+'/'+place._id}>{place.address}</Link>
                   {place.comments.map(comment => {
                     return <p key={comment._id}>Comment: {comment.text}</p>;
                   })}
@@ -171,7 +173,7 @@ export default class List extends Component {
             .map(place => {
               return (
                 <div key={place._id}>
-                  <p>{place.address}</p>
+                  <Link to={'/myprofile/'+userId+'/'+place._id}>{place.address}</Link>
                   {place.comments.map(comment => {
                     return <p key={comment._id}>Comment: {comment.text}</p>;
                   })}
@@ -187,7 +189,7 @@ export default class List extends Component {
             .map(place => {
               return (
                 <div key={place._id}>
-                  <p>{place.address}</p>
+                  <Link to={'/myprofile/'+userId+'/'+place._id}>{place.address}</Link>
                   {place.comments.map(comment => {
                     return <p key={comment._id}>Comment: {comment.text}</p>;
                   })}

@@ -3,6 +3,7 @@ import GoogleMapReact from "google-map-react";
 import axios from "axios";
 import { mapStyle } from "./MapStyle";
 import SearchBar from "../search/SearchBar";
+import { Link } from "react-router-dom";
 
 const getInfoWindowString = place => `
   <div
@@ -23,17 +24,70 @@ class SearchMap extends Component {
       zoom: 11,
       places: null,
       city: null,
-      country: null
+      country: null,
+      displayMap: true,
+      displayList: false,
+      displayAll: true,
+      displaySee: false,
+      displaySleep: false,
+      displayEat: false
     };
   }
 
-  selectType(e) {
-    let newPlaces = this.state.places;
-    let searchType = e.target.value;
-    let filterPlaces = newPlaces.filter(place =>
-      place.type.toLowerCase().includes(searchType.toLowerCase())
-    );
-    this.setState({ places: filterPlaces });
+  showMap() {
+    this.setState({
+      ...this.state,
+      displayMap: true,
+      displayList: false
+    });
+  }
+
+  showList() {
+    this.setState({
+      ...this.state,
+      displayMap: false,
+      displayList: true
+    });
+  }
+
+  showAll() {
+    this.setState({
+      ...this.state,
+      displayAll: true,
+      displaySee: false,
+      displaySleep: false,
+      displayEat: false
+    });
+  }
+
+  showSee() {
+    this.setState({
+      ...this.state,
+      displayAll: false,
+      displaySee: true,
+      displaySleep: false,
+      displayEat: false
+    });
+  }
+
+  showSleep() {
+    this.setState({
+      ...this.state,
+      displayAll: false,
+      displaySee: false,
+      displaySleep: true,
+      displayEat: false
+    });
+  }
+
+  showEat() {
+    this.setState({
+      ...this.state,
+      displayAll: false,
+      displaySee: false,
+      displaySleep: false,
+      displayEat: true
+    });
   }
 
   componentDidMount() {
@@ -132,8 +186,12 @@ class SearchMap extends Component {
   };
 
   // onClick = ({ x, y, lat, lng, event }) => console.log(x, y, lat, lng, event);
-  
+
   render() {
+    const eat = "eat";
+    const sleep = "sleep";
+    const see = "see";
+
     const { latitude, longitude, zoom, places, city, country } = this.state;
 
     const center = {
@@ -144,9 +202,6 @@ class SearchMap extends Component {
     const mapOptions = {
       styles: mapStyle
     };
-
-    console.log(city);
-    console.log(country);
 
     return (
       <div className="container">
@@ -201,7 +256,9 @@ class SearchMap extends Component {
           Twitter
         </a>
         {/* <!-- Email --> */}
-        <a href={"mailto:?Subject=Visita%20mis%20recomendaciones%20&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://tipafriend.herokuapp.com/map/" +
+        <a
+          href={
+            "mailto:?Subject=Visita%20mis%20recomendaciones%20&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://tipafriend.herokuapp.com/map/" +
             latitude +
             "/" +
             longitude +
@@ -209,47 +266,100 @@ class SearchMap extends Component {
             city +
             "/" +
             country
-          }>
+          }
+        >
           Email
         </a>
 
-        <div style={{ height: "70vh", width: "90%" }}>
-        {places && (
-            <GoogleMapReact
-              zoom={zoom}
-              center={center}
-              options={mapOptions}
-              yesIWantToUseGoogleMapApiInternals
-              onGoogleApiLoaded={({ map, maps }) =>
-                this.handleApiLoaded(map, maps, places)
-              }
-            />
-          )}
-        </div>
+        <button onClick={() => this.showMap()}>Mapa</button>
+        <button onClick={() => this.showList()}>Lista</button>
 
-        {/* <input
-          type="search"
-          defaultValue=""
-          onChange={e => this.selectType(e)}
-        />
+        {this.state.displayMap && (
+          <div style={{ height: "70vh", width: "90%" }}>
+            {places && (
+              <GoogleMapReact
+                zoom={zoom}
+                center={center}
+                options={mapOptions}
+                yesIWantToUseGoogleMapApiInternals
+                onGoogleApiLoaded={({ map, maps }) =>
+                  this.handleApiLoaded(map, maps, places)
+                }
+              />
+            )}
+          </div>
+        )}
 
-        {places.map(place => {
-          return (
-            <div key={place._id}>
-              <p>{place.address}</p>
-              {place.comments.map(comment => {
+        {this.state.displayList && (
+          <div style={{ height: "70vh", width: "90%" }}>
+            <div>
+              <button onClick={() => this.showAll()}>Todo</button>
+              <button onClick={() => this.showEat()}>Comer</button>
+              <button onClick={() => this.showSleep()}>Dormir</button>
+              <button onClick={() => this.showSee()}>Visitar</button>
+            </div>
+            
+            {this.state.displayAll &&
+              this.state.places.map(place => {
                 return (
-                  <p key={comment._id}>
-                    {comment.authorId.map(author => {
-                      return <span key={author._id}>{author.username}: </span>;
-                    })}{" "}
-                    {comment.text}
-                  </p>
+                  <div key={place._id}>
+                    <Link to={"/place/" + place._id}>{place.address}</Link>
+                    {place.comments.map(comment => {
+                      return <p key={comment._id}>Comment: {comment.text}</p>;
+                    })}
+                  </div>
                 );
               })}
-            </div>
-          );
-        })} */}
+
+            {this.state.displayEat &&
+              this.state.places
+                .filter(place =>
+                  place.type.toLowerCase().includes(eat.toLowerCase())
+                )
+                .map(place => {
+                  return (
+                    <div key={place._id}>
+                      <Link to={"/place/" + place._id}>{place.address}</Link>
+                      {place.comments.map(comment => {
+                        return <p key={comment._id}>Comment: {comment.text}</p>;
+                      })}
+                    </div>
+                  );
+                })}
+
+            {this.state.displaySleep &&
+              this.state.places
+                .filter(place =>
+                  place.type.toLowerCase().includes(sleep.toLowerCase())
+                )
+                .map(place => {
+                  return (
+                    <div key={place._id}>
+                      <Link to={"/place/" + place._id}>{place.address}</Link>
+                      {place.comments.map(comment => {
+                        return <p key={comment._id}>Comment: {comment.text}</p>;
+                      })}
+                    </div>
+                  );
+                })}
+
+            {this.state.displaySee &&
+              this.state.places
+                .filter(place =>
+                  place.type.toLowerCase().includes(see.toLowerCase())
+                )
+                .map(place => {
+                  return (
+                    <div key={place._id}>
+                      <Link to={"/place/" + place._id}>{place.address}</Link>
+                      {place.comments.map(comment => {
+                        return <p key={comment._id}>Comment: {comment.text}</p>;
+                      })}
+                    </div>
+                  );
+                })}
+          </div>
+        )}
       </div>
     );
   }

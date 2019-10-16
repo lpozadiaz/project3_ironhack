@@ -33,7 +33,7 @@ class Navbar extends Component {
               <a onClick={this.handleLogout}>Logout</a>
             </li>
             <li>
-              <Link to={"/profile/" + this.state.loggedInUser._id}>
+              <Link to={"/myprofile/" + this.state.loggedInUser._id}>
                 Your profile, {this.state.loggedInUser.username}
               </Link>
             </li>

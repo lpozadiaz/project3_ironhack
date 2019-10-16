@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import ProfileMap from "./map/Map";
-import List from "./list/List";
+import PersonalList from "./list/PersonalList";
 import axios from "axios";
 
-export default class ProfileIndex extends Component {
+export default class PersonalIndex extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -73,6 +73,7 @@ export default class ProfileIndex extends Component {
   };
 
   render() {
+    
     return (
       <div>
         <button onClick={() => this.showMap()}>Mapa</button>
@@ -80,7 +81,7 @@ export default class ProfileIndex extends Component {
         {this.state.userId && this.state.places && (
           <div>
             {this.state.displayMap && <ProfileMap places={this.state.places}/>}
-            {this.state.displayList && <List places={this.state.places} city={this.state.city} userId={this.state.userId}/>}
+            {this.state.displayList && <PersonalList places={this.state.places} city={this.state.city} userId={this.state.userId}/>}
           </div>
         )}
       </div>

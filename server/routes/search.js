@@ -26,6 +26,14 @@ router.get("/all", (req, res, next) => {
     .then(allPlaces => res.json(allPlaces));
 });
 
+router.get("/place/:id", (req, res, next) => {
+  Place.findById(req.params.id)
+    .populate("comments")
+    .populate({ path: "comments", populate: { path: "authorId" } })
+    .select(placeObject)
+    .then(placeDetail => res.json(placeDetail));
+});
+
 router.get("/:id", (req, res, next) => {
   User.findById(req.params.id)
     .populate("markers")
