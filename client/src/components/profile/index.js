@@ -46,7 +46,7 @@ export default class ProfileIndex extends Component {
   render() {
     return (
       <div>
-        {this.state.userId && this.state.places && (
+        {(this.state.userId && this.state.places) && (
           <div>
             <ProfileMap places={this.state.places} />
             <List places={this.state.places} />
