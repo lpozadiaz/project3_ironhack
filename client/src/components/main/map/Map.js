@@ -149,9 +149,7 @@ class SearchMap extends Component {
       .then(apiData => {
         this.setState({
           places: apiData.data.filter(place =>
-            place.address
-              .toLowerCase()
-              .includes(this.state.city.toLowerCase(), place.comments)
+            place.address.toLowerCase().includes(this.state.city.toLowerCase())
           )
         });
       });
@@ -162,23 +160,25 @@ class SearchMap extends Component {
     const infowindows = [];
 
     places.forEach(place => {
-      markers.push(
-        new maps.Marker({
-          position: {
-            lat: place.location.coordinates[1],
-            lng: place.location.coordinates[0]
-          },
-          icon:
-            "https://res.cloudinary.com/dctu91qjy/image/upload/v1571213592/tripTip/pin_1_bhxwkr.png",
-          map
-        })
-      );
+      if (place.comments.length > 0) {
+        markers.push(
+          new maps.Marker({
+            position: {
+              lat: place.location.coordinates[1],
+              lng: place.location.coordinates[0]
+            },
+            icon:
+              "https://res.cloudinary.com/dctu91qjy/image/upload/v1571213592/tripTip/pin_1_bhxwkr.png",
+            map
+          })
+        );
 
-      infowindows.push(
-        new maps.InfoWindow({
-          content: getInfoWindowString(place)
-        })
-      );
+        infowindows.push(
+          new maps.InfoWindow({
+            content: getInfoWindowString(place)
+          })
+        );
+      }
     });
 
     markers.forEach((marker, i) => {
@@ -315,12 +315,15 @@ class SearchMap extends Component {
 
               {this.state.displayAll &&
                 this.state.places.map(place => {
+                  if (place.comments.length>0) {
                   return (
                     <div className="list-detail" key={place._id}>
-                      <Link to={"/place/" + place._id}>{place.address.split(",").slice(0,1)}</Link>
+                      <Link to={"/place/" + place._id}>
+                        {place.address.split(",").slice(0, 1)}
+                      </Link>
                     </div>
                   );
-                })}
+                }})}
 
               {this.state.displayEat &&
                 this.state.places
@@ -328,12 +331,15 @@ class SearchMap extends Component {
                     place.type.toLowerCase().includes(eat.toLowerCase())
                   )
                   .map(place => {
+                    if (place.comments.length>0) {
                     return (
                       <div className="list-detail" key={place._id}>
-                        <Link to={"/place/" + place._id}>{place.address.split(",").slice(0,1)}</Link>
+                        <Link to={"/place/" + place._id}>
+                          {place.address.split(",").slice(0, 1)}
+                        </Link>
                       </div>
                     );
-                  })}
+                  }})}
 
               {this.state.displaySleep &&
                 this.state.places
@@ -341,25 +347,31 @@ class SearchMap extends Component {
                     place.type.toLowerCase().includes(sleep.toLowerCase())
                   )
                   .map(place => {
+                    if (place.comments.length>0) {
                     return (
                       <div className="list-detail" key={place._id}>
-                        <Link to={"/place/" + place._id}>{place.address.split(",").slice(0,1)}</Link>
+                        <Link to={"/place/" + place._id}>
+                          {place.address.split(",").slice(0, 1)}
+                        </Link>
                       </div>
                     );
-                  })}
+                  }})}
 
               {this.state.displaySee &&
                 this.state.places
-                  .filter(place =>
+                  .filter(place => 
                     place.type.toLowerCase().includes(see.toLowerCase())
                   )
                   .map(place => {
+                    if (place.comments.length>0) {
                     return (
                       <div className="list-detail" key={place._id}>
-                        <Link to={"/place/" + place._id}>{place.address.split(",").slice(0,1)}</Link>
+                        <Link to={"/place/" + place._id}>
+                          {place.address.split(",").slice(0, 1)}
+                        </Link>
                       </div>
                     );
-                  })}
+                  }})}
             </div>
           )}
         </div>

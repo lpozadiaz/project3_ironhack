@@ -8,10 +8,21 @@ class AddMap extends Component {
     this.state = {
       latitude: this.props.latitude,
       longitude: this.props.longitude,
-      zoom: 15,
-      places: []
+      zoom: 15
     };
   }
+
+  handleApiLoaded = (map, maps, places) => {
+    new maps.Marker({
+      position: {
+        lat: this.state.latitude,
+        lng: this.state.longitude
+      },
+      icon:
+        "https://res.cloudinary.com/dctu91qjy/image/upload/v1571213592/tripTip/pin_1_bhxwkr.png",
+      map
+    });
+  };
 
   render() {
     const { latitude, longitude, zoom } = this.state;
@@ -32,8 +43,9 @@ class AddMap extends Component {
           center={center}
           zoom={zoom}
           options={mapOptions}
-          yesIWantToUseGoogleMapApiInternals={true}
-        ></GoogleMapReact>
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps }) => this.handleApiLoaded(map, maps)}
+        />
       </div>
     );
   }

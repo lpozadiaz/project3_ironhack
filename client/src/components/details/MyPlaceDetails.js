@@ -10,7 +10,7 @@ export default class MyDetails extends Component {
       place: null,
       userId: null,
       displayEdit: false,
-      comment: "",  
+      comment: ""
     };
     this.service = new AddService();
   }
@@ -55,31 +55,34 @@ export default class MyDetails extends Component {
   handleFormSubmit = event => {
     event.preventDefault();
     const comment = this.state.comment;
-    const commentId = this.state.place.comments
-      .filter(comment => comment.authorId[0]._id.includes(this.state.userId))
+    const commentId = this.state.place.comments.filter(comment =>
+      comment.authorId[0]._id.includes(this.state.userId)
+    );
 
-    
     this.service
       .update(comment, commentId)
       .then(response => {
         this.setState({
-          comment: "",
+          comment: ""
         });
+        window.location="/home";
       })
       .catch(error => {
         this.setState({
-          comment: "",
+          comment: ""
         });
       });
   };
 
   handleDelete = () => {
-    const commentId = this.state.place.comments
-      .filter(comment => comment.authorId[0]._id.includes(this.state.userId));
+    const commentId = this.state.place.comments.filter(comment =>
+      comment.authorId[0]._id.includes(this.state.userId)
+    );
     const placeId = this.state.placeId;
-    
-    this.service
-      .delete(placeId, commentId)
+
+    this.service.delete(placeId, commentId);
+
+    window.location = "/home";
   };
 
   handleChange = event => {
@@ -89,11 +92,10 @@ export default class MyDetails extends Component {
 
   render() {
     const { place, userId, placeId } = this.state;
-    console.log(placeId)
+    console.log(placeId);
 
     return (
       <div>
-        
         {place && (
           <div>
             {place.comments
@@ -114,7 +116,9 @@ export default class MyDetails extends Component {
                         >
                           Busca en Google
                         </a>
-                        <button onClick={() => this.handleDelete()}>Eliminar</button>
+                        <button onClick={() => this.handleDelete()}>
+                          Eliminar
+                        </button>
                       </div>
                     )}
                     {this.state.displayEdit && (
@@ -132,7 +136,6 @@ export default class MyDetails extends Component {
                           </fieldset>
                           <input type="submit" value="Update" />
                         </form>
-                        
                       </div>
                     )}
                   </div>

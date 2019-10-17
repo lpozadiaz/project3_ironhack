@@ -70,15 +70,14 @@ router.post("/create", (req, res, next) => {
     .catch(e => next(e));
 });
 
-router.post("/edit", (req, res, next) => {
+router.put("/edit", (req, res, next) => {
   const comment = req.body.comment;
   const commentId = req.body.commentId;
-  // if (!comment) {
-  //   next(new Error("You have to fill this field."));
-  // }
 
-  Comment.findOneAndUpdate(commentId, { text: comment})
-    .then(commentUpdate => res.json({ status: "Comment updated", commentUpdate }))
+  Comment.findOneAndUpdate(commentId, { text: comment }, { new: true })
+    .then(commentUpdate =>
+      res.json({ status: "Comment updated", commentUpdate })
+    )
 
     .catch(e => next(e));
 });
@@ -87,18 +86,27 @@ router.put("/delete", (req, res, next) => {
   const placeId = req.body.placeId;
   const commentId = req.body.commentId;
 
-  Comment.findByIdAndDelete(commentId._id)
+  Comment.findOneAndDelete(commentId)
     .then(commentDeleted => {
-      User.findByIdAndUpdate(
-        req.user._id,
-        {
-          $pull: { markers: placeId }
-        },
-        { new: true }
+      Place.findByIdAndUpdate(
+        placeId,
+        { $pull: { comments: commentDeleted._id } },
+        { new: true, useFindAndModify: false }
       )
-        .then(userUpdated => {
-          return;
+        .then(placeUpdate => {
+          User.findByIdAndUpdate(
+            req.user._id,
+            {
+              $pull: { markers: placeUpdate._id }
+            },
+            { new: true, useFindAndModify: false }
+          )
+            .then(userUpdated =>
+              res.json({ status: "Comment updated", userUpdate })
+            )
+            .catch(e => next(e));
         })
+
         .catch(e => next(e));
     })
     .catch(e => next(e));

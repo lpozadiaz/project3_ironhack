@@ -164,6 +164,8 @@
   background-color: white;
   border-style: none;
   border-bottom-style: solid;
+  border-bottom-width: 0.2;
+  border-bottom-color: rgba(128, 128, 128, 0.502);
   // box-shadow: 0 .2rem .2rem 0 rgba(0,0,0,0.16), 0 0 0 0.1rem rgba(0,0,0,0.08);
   padding: 1.2rem;
   width: 25%;
@@ -173,8 +175,10 @@
 .button-list button:focus {
   // background-color:  rgba(16, 16, 16, 0.5);
   // color: $background-color;
+  border-color: rgba(128, 128, 128, 0.502);
   border-style: solid;
   border-bottom-style: none;
+  border-bottom-width: 0.2;
   outline: none;
 }
 
@@ -240,7 +244,7 @@ form fieldset {
 
 .input-add {
   width: 20rem;
-  height: 10rem;
+  height: 2rem;
   font-size: 1.5rem;
   border-bottom: honeydew;
   border-left: honeydew;
