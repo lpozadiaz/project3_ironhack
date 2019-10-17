@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./App.css";
 import { Switch, Route} from "react-router-dom";
 import AuthService from "./components/auth/AuthService";
 import Navbar from "./components/navbar/Navbar";
@@ -51,10 +50,11 @@ class App extends Component {
   }
 
   render() {
+    
     if (this.state.loggedInUser) {
       return (
         <React.Fragment>
-          <div>
+          <div className="App">
             <Navbar
               userInSession={this.state.loggedInUser}
               logout={this.logout}

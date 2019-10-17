@@ -122,7 +122,7 @@ class SearchMap extends Component {
   componentDidUpdate(prevProps) {
     if (
       this.props.match.params.latitude !== prevProps.match.params.latitude &&
-      this.props.match.params.longitude !== prevProps.match.params.longitude 
+      this.props.match.params.longitude !== prevProps.match.params.longitude
     ) {
       const cityParams = this.props.match.params.city;
       const countryParams = this.props.match.params.country;
@@ -141,7 +141,7 @@ class SearchMap extends Component {
   }
 
   getAll = () => {
-    this.setState({places:null})
+    this.setState({ places: null });
     axios
       // .get(`${process.env.REACT_APP_URL}/api/search/all`)
       .get(`http://localhost:3010/api/search/all`)
@@ -149,7 +149,9 @@ class SearchMap extends Component {
       .then(apiData => {
         this.setState({
           places: apiData.data.filter(place =>
-            place.address.toLowerCase().includes(this.state.city.toLowerCase(), place.comments)
+            place.address
+              .toLowerCase()
+              .includes(this.state.city.toLowerCase(), place.comments)
           )
         });
       });
@@ -204,165 +206,171 @@ class SearchMap extends Component {
       styles: mapStyle
     };
 
-    return (
-      <div className="container">
-        <SearchBar />
-        {/* <-- Whatsapp --> */}
-        <a
-          href={
-            "whatsapp://send?text=Visita%20mis%20recomendaciones%20https://tipafriend.herokuapp.com/map/" +
-            latitude +
-            "/" +
-            longitude +
-            "/" +
-            city +
-            "/" +
-            country
-          }
-          target="_blank"
-        >
-          Whatsapp
-        </a>
-        {/* <-- Facebook --> */}
-        <a
-          href={
-            "http://www.facebook.com/sharer.php?u=https://tipafriend.herokuapp.com/map/" +
-            latitude +
-            "/" +
-            longitude +
-            "/" +
-            city +
-            "/" +
-            country
-          }
-          target="_blank"
-        >
-          Facebook
-        </a>
-
-        {/* <!-- Twitter --> */}
-        <a
-          href={
-            "https://twitter.com/share?url=https://tipafriend.herokuapp.com/map/" +
-            latitude +
-            "/" +
-            longitude +
-            "/" +
-            city +
-            "/" +
-            country
-          }
-          target="_blank"
-        >
-          Twitter
-        </a>
-        {/* <!-- Email --> */}
-        <a
-          href={
-            "mailto:?Subject=Visita%20mis%20recomendaciones%20&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://tipafriend.herokuapp.com/map/" +
-            latitude +
-            "/" +
-            longitude +
-            "/" +
-            city +
-            "/" +
-            country
-          }
-        >
-          Email
-        </a>
-
-        <button onClick={() => this.showMap()}>Mapa</button>
-        <button onClick={() => this.showList()}>Lista</button>
-
-        {this.state.displayMap && (
-          <div style={{ height: "70vh", width: "90%" }}>
-            {places && (
-              <GoogleMapReact
-                zoom={zoom}
-                center={center}
-                options={mapOptions}
-                yesIWantToUseGoogleMapApiInternals
-                onGoogleApiLoaded={({ map, maps }) =>
-                  this.handleApiLoaded(map, maps, places)
-                }
-              />
-            )}
-          </div>
-        )}
-
-        {this.state.displayList && (
-          <div style={{ height: "70vh", width: "90%" }}>
-            <div>
-              <button onClick={() => this.showAll()}>Todo</button>
-              <button onClick={() => this.showEat()}>Comer</button>
-              <button onClick={() => this.showSleep()}>Dormir</button>
-              <button onClick={() => this.showSee()}>Visitar</button>
+    if (latitude && longitude && places && city && country) {
+      return (
+        <div className="container">
+          <div className="nav-search">
+            <div className="button-view">
+              <button onClick={() => this.showMap()}>Mapa</button>
+              <button onClick={() => this.showList()}>Lista</button>
             </div>
-            
-            {this.state.displayAll &&
-              this.state.places.map(place => {
-                return (
-                  <div key={place._id}>
-                    <Link to={"/place/" + place._id}>{place.address}</Link>
-                    {place.comments.map(comment => {
-                      return <p key={comment._id}>Comment: {comment.text}</p>;
-                    })}
-                  </div>
-                );
-              })}
+            <SearchBar />
+            <div className="social-share">
+              <ul>
+                <li>
+                  <a
+                    href={
+                      "whatsapp://send?text=Visita%20mis%20recomendaciones%20https://tipafriend.herokuapp.com/map/" +
+                      latitude +
+                      "/" +
+                      longitude +
+                      "/" +
+                      city +
+                      "/" +
+                      country
+                    }
+                    target="_blank"
+                  >
+                    <img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571323398/tripTip/whatsapp_qobzhg.png" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={
+                      "http://www.facebook.com/sharer.php?u=https://tipafriend.herokuapp.com/map/" +
+                      latitude +
+                      "/" +
+                      longitude +
+                      "/" +
+                      city +
+                      "/" +
+                      country
+                    }
+                    target="_blank"
+                  >
+                    <img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571323403/tripTip/facebook_xnml8w.png" />
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={
+                      "https://twitter.com/share?url=https://tipafriend.herokuapp.com/map/" +
+                      latitude +
+                      "/" +
+                      longitude +
+                      "/" +
+                      city +
+                      "/" +
+                      country
+                    }
+                    target="_blank"
+                  >
+                    <img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571323396/tripTip/twitter_hw9jn1.png" />
+                  </a>
+                </li>
 
-            {this.state.displayEat &&
-              this.state.places
-                .filter(place =>
-                  place.type.toLowerCase().includes(eat.toLowerCase())
-                )
-                .map(place => {
-                  return (
-                    <div key={place._id}>
-                      <Link to={"/place/" + place._id}>{place.address}</Link>
-                      {place.comments.map(comment => {
-                        return <p key={comment._id}>Comment: {comment.text}</p>;
-                      })}
-                    </div>
-                  );
-                })}
-
-            {this.state.displaySleep &&
-              this.state.places
-                .filter(place =>
-                  place.type.toLowerCase().includes(sleep.toLowerCase())
-                )
-                .map(place => {
-                  return (
-                    <div key={place._id}>
-                      <Link to={"/place/" + place._id}>{place.address}</Link>
-                      {place.comments.map(comment => {
-                        return <p key={comment._id}>Comment: {comment.text}</p>;
-                      })}
-                    </div>
-                  );
-                })}
-
-            {this.state.displaySee &&
-              this.state.places
-                .filter(place =>
-                  place.type.toLowerCase().includes(see.toLowerCase())
-                )
-                .map(place => {
-                  return (
-                    <div key={place._id}>
-                      <Link to={"/place/" + place._id}>{place.address}</Link>
-                      {place.comments.map(comment => {
-                        return <p key={comment._id}>Comment: {comment.text}</p>;
-                      })}
-                    </div>
-                  );
-                })}
+                <li>
+                  <a
+                    href={
+                      "mailto:?Subject=Visita%20mis%20recomendaciones%20&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://tipafriend.herokuapp.com/map/" +
+                      latitude +
+                      "/" +
+                      longitude +
+                      "/" +
+                      city +
+                      "/" +
+                      country
+                    }
+                  >
+                    <img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571323411/tripTip/email_kqpin0.png" />
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
-        )}
-      </div>
-    );
+          {this.state.displayMap && (
+            <div className="map">
+              {places && (
+                <GoogleMapReact
+                  zoom={zoom}
+                  center={center}
+                  options={mapOptions}
+                  yesIWantToUseGoogleMapApiInternals
+                  onGoogleApiLoaded={({ map, maps }) =>
+                    this.handleApiLoaded(map, maps, places)
+                  }
+                />
+              )}
+            </div>
+          )}
+
+          {this.state.displayList && (
+            <div className="list">
+              <div className="button-list">
+                <button onClick={() => this.showAll()}>Todo</button>
+                <button onClick={() => this.showEat()}>Comer</button>
+                <button onClick={() => this.showSleep()}>Dormir</button>
+                <button onClick={() => this.showSee()}>Visitar</button>
+              </div>
+
+              {this.state.displayAll &&
+                this.state.places.map(place => {
+                  return (
+                    <div className="list-detail" key={place._id}>
+                      <Link to={"/place/" + place._id}>{place.address.split(",").slice(0,1)}</Link>
+                    </div>
+                  );
+                })}
+
+              {this.state.displayEat &&
+                this.state.places
+                  .filter(place =>
+                    place.type.toLowerCase().includes(eat.toLowerCase())
+                  )
+                  .map(place => {
+                    return (
+                      <div className="list-detail" key={place._id}>
+                        <Link to={"/place/" + place._id}>{place.address.split(",").slice(0,1)}</Link>
+                      </div>
+                    );
+                  })}
+
+              {this.state.displaySleep &&
+                this.state.places
+                  .filter(place =>
+                    place.type.toLowerCase().includes(sleep.toLowerCase())
+                  )
+                  .map(place => {
+                    return (
+                      <div className="list-detail" key={place._id}>
+                        <Link to={"/place/" + place._id}>{place.address.split(",").slice(0,1)}</Link>
+                      </div>
+                    );
+                  })}
+
+              {this.state.displaySee &&
+                this.state.places
+                  .filter(place =>
+                    place.type.toLowerCase().includes(see.toLowerCase())
+                  )
+                  .map(place => {
+                    return (
+                      <div className="list-detail" key={place._id}>
+                        <Link to={"/place/" + place._id}>{place.address.split(",").slice(0,1)}</Link>
+                      </div>
+                    );
+                  })}
+            </div>
+          )}
+        </div>
+      );
+    } else {
+      return (
+        <div className="spinner">
+          <img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571303052/tripTip/loading_oscuro_bcukel.gif"></img>
+        </div>
+      );
+    }
   }
 }
 

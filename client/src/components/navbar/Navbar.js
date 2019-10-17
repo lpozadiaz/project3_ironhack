@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import AuthService from "../auth/AuthService";
-import "./Navbar.css";
 
 class Navbar extends Component {
   constructor(props) {
@@ -22,19 +21,17 @@ class Navbar extends Component {
     if (this.state.loggedInUser) {
       return (
         <nav className="nav-style">
+          <Link to="/home"><img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571309273/tripTip/logo_color_yrmwds.png" alt="Logo"></img></Link>
           <ul>
             <li>
-              <Link to="/home">Home</Link>
+              <Link to="/place/add">Añade una recomendación</Link>
             </li>
             <li>
-              <Link to="/place/add">Add a place</Link>
-            </li>
-            <li>
-              <a onClick={this.handleLogout}>Logout</a>
+              <a onClick={this.handleLogout}>Desconecta</a>
             </li>
             <li>
               <Link to={"/myprofile/" + this.state.loggedInUser._id}>
-                Your profile, {this.state.loggedInUser.username}
+                Visita tu perfil, {this.state.loggedInUser.username}
               </Link>
             </li>
           </ul>
@@ -44,6 +41,7 @@ class Navbar extends Component {
       return (
         <div>
           <nav className="nav-style">
+          <Link to="/home"><img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571309273/tripTip/logo_color_yrmwds.png" alt="Logo"></img></Link>
             <ul>
               <li>
                 <Link to="/home">Home</Link>

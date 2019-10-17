@@ -46,27 +46,34 @@ export default class AddForm extends Component {
 
   render() {
     if (this.state.placeCreated) {
-      return <div>¡Place created!</div>;
+      return <h4>¡Recomendación creada!</h4>;
     } else {
       return (
-        <div>
+        <div className="form-add">
           <form onSubmit={this.handleFormSubmit}>
             <fieldset>
-              <label>Type:</label>
-              <select type="text" name="type" value={this.state.type} onChange={e => this.handleChange(e)}>
-                <option value="Eat">Eat</option>
-                <option value="Sleep">Sleep</option>
-                <option value="See">See</option>
-              </select>
-              <label>Tip:</label>
-              <input
+              <label>Categoría:</label>
+              <select
                 type="text"
+                name="type"
+                value={this.state.type}
+                onChange={e => this.handleChange(e)}
+              >
+                <option value="Eat">Comer</option>
+                <option value="Sleep">Dormir</option>
+                <option value="See">Visitar</option>
+              </select>
+            </fieldset>
+            <fieldset>
+              <label>Recomendación:</label>
+              <input className="input-add"
+                type="textarea"
                 name="comment"
                 value={this.state.comment}
                 onChange={e => this.handleChange(e)}
               />
             </fieldset>
-            <input type="submit" value="Create" />
+            <input className="button-form" type="submit" value="Create" />
           </form>
         </div>
       );

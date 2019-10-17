@@ -1,0 +1,35 @@
+.nav-style {
+  position: relative;
+  background-color: $primary-color;
+	display: flex;
+	justify-content: space-between;
+  align-items: center;
+  height: 6rem;
+  padding: 0 3rem;
+  box-shadow: 0 0 0.8rem 0 $secondary-color;
+  font-size: 1.6rem;
+}
+
+.nav-style img {
+  height: 4rem;
+  width: 4rem;
+
+}
+
+.nav-style ul {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+}
+
+.nav-style li {
+  margin-right: 20px;
+  color: black
+}
+
+.nav-style a {
+  color: $background-color;
+  text-decoration: none !important;
+  font-weight: 500;
+  text-shadow: .1rem .1rem .1rem $secondary-color;
+}

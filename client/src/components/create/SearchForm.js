@@ -2,7 +2,6 @@ import React from "react";
 import PlacesAutocomplete from "react-places-autocomplete";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { classnames } from "./searchHelpers";
-import "./SearchBar.css";
 import Map from "./map/Map";
 import AddForm from "./form/AddForm";
 
@@ -75,7 +74,9 @@ class SearchForm extends React.Component {
     };
 
     return (
-      <div>
+      <div className="container">
+        <div className="search-add">
+          <h4>Busca el sitio que quieres recomendar</h4>
         <PlacesAutocomplete
           onChange={this.handleChange}
           value={address}
@@ -90,7 +91,7 @@ class SearchForm extends React.Component {
                 <div className="Demo__search-input-container">
                   <input
                     {...getInputProps({
-                      placeholder: "Search Places...",
+                      placeholder: "Busca tu recomendación",
                       className: "Demo__search-input"
                     })}
                   />
@@ -129,21 +130,22 @@ class SearchForm extends React.Component {
             );
           }}
         </PlacesAutocomplete>
+        </div>
         {errorMessage.length > 0 && (
           <div className="Demo__error-message">{this.state.errorMessage}</div>
         )}
 
         {((address && latitude && longitude) || isGeocoding) && (
-          <div>
+          <React.Fragment>
             {isGeocoding ? (
               <div></div>
             ) : (
-              <div>
+              <React.Fragment>
                 <Map latitude={latitude} longitude={longitude} />
                 <AddForm address={address} latitude={latitude} longitude={longitude}/>
-              </div>
+              </React.Fragment>
             )}
-          </div>
+          </React.Fragment>
         )}
       </div>
     );

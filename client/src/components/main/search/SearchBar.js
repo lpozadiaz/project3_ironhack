@@ -3,7 +3,6 @@ import PlacesAutocomplete from "react-places-autocomplete";
 import { geocodeByAddress, getLatLng } from "react-places-autocomplete";
 import { classnames } from "./searchHelpers";
 import { Redirect } from "react-router-dom";
-import "./SearchBar.css";
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -84,7 +83,7 @@ class SearchBar extends React.Component {
     };
 
     return (
-      <div>
+      <React.Fragment>
         <PlacesAutocomplete
           onChange={this.handleChange}
           value={address}
@@ -99,7 +98,7 @@ class SearchBar extends React.Component {
                 <div className="Demo__search-input-container">
                   <input
                     {...getInputProps({
-                      placeholder: "Search Places...",
+                      placeholder: "Busca un lugar...",
                       className: "Demo__search-input"
                     })}
                   />
@@ -145,7 +144,8 @@ class SearchBar extends React.Component {
         {((latitude && longitude && city && country) || isGeocoding) && (
           <div>
             {isGeocoding ? (
-              <div></div>
+              <div>
+              </div>
             ) : (
               <div>
                 <Redirect
@@ -164,7 +164,7 @@ class SearchBar extends React.Component {
             )}
           </div>
         )}
-      </div>
+      </React.Fragment>
     );
   }
 }

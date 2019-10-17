@@ -26,19 +26,14 @@ class AddMap extends Component {
     };
 
     return (
-      <div className="container">
-       
-        <div style={{ height: "70vh", width: "90%" }}>
-          
-            <GoogleMapReact
-              google={this.props.google}
-              center={center}
-              zoom={zoom}
-              options={mapOptions}
-              yesIWantToUseGoogleMapApiInternals={true}
-            ></GoogleMapReact>
-        
-        </div>
+      <div className="map map-reduce">
+        <GoogleMapReact
+          google={this.props.google}
+          center={center}
+          zoom={zoom}
+          options={mapOptions}
+          yesIWantToUseGoogleMapApiInternals={true}
+        ></GoogleMapReact>
       </div>
     );
   }
