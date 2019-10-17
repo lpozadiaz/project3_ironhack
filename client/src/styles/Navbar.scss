@@ -24,7 +24,8 @@
 
 .nav-style li {
   margin-right: 20px;
-  color: black
+  color: $background-color;
+  text-shadow: .1rem .1rem .1rem $secondary-color;
 }
 
 .nav-style a {

@@ -74,14 +74,16 @@ export default class ProfileIndex extends Component {
 
   render() {
     return (
-      <div>
+      <div className="container">
+        <div className="button-view">
         <button onClick={() => this.showMap()}>Mapa</button>
         <button onClick={() => this.showList()}>Lista</button>
+        </div>
         {this.state.userId && this.state.places && (
-          <div>
+          <React.Fragment>
             {this.state.displayMap && <ProfileMap places={this.state.places}/>}
             {this.state.displayList && <List places={this.state.places} city={this.state.city} userId={this.state.userId}/>}
-          </div>
+          </React.Fragment>
         )}
       </div>
     );

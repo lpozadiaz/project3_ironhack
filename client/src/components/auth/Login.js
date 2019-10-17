@@ -20,7 +20,7 @@ class Login extends Component {
           password: password,
           error: false
         });
-
+        window.location="/home";
         this.props.getUser(response)
       })
       .catch(error => {
@@ -39,21 +39,21 @@ class Login extends Component {
 
   render() {
 
-    return (<div>
-      <h3>Please, login to our site</h3>
+    return (<div className="container">
+      <h3 className="signup">Por favor, introduce tus datos para entrar en tu perfil</h3>
 
       <form onSubmit={this.handleFormSubmit}>
         <fieldset>
           <label>Username:</label>
-          <input type="text" name="username" value={this.state.username} onChange={e => this.handleChange(e)} />
+          <input className="input-city" type="text" name="username" value={this.state.username} onChange={e => this.handleChange(e)} />
         </fieldset>
 
         <fieldset>
           <label>Password:</label>
-          <input type="password" name="password" value={this.state.password} onChange={e => this.handleChange(e)} />
+          <input className="input-city" type="password" name="password" value={this.state.password} onChange={e => this.handleChange(e)} />
         </fieldset>
 
-        <input type="submit" value="Login" />
+        <input className="button-form" type="submit" value="Login" />
       </form>
 
       <h1>{this.state.error ? 'Error' : ''}</h1>

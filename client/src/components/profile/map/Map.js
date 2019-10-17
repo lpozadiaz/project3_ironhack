@@ -70,8 +70,8 @@ class ProfileMap extends Component {
     };
 
     return (
-      <div className="container">
-        <div style={{ height: "70vh", width: "90%" }}>
+      <div className="map map-profile">
+        
           {places && (
             <GoogleMapReact
               defaultZoom={0}
@@ -83,7 +83,7 @@ class ProfileMap extends Component {
               }
             />
           )}
-        </div>
+     
       </div>
     );
   }

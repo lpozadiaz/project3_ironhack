@@ -9,12 +9,13 @@
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  padding-top: 2rem;
   width: 100%;
 }
 
-.principal-search{
+.principal-search {
   background-image: url("https://res.cloudinary.com/dctu91qjy/image/upload/v1571311627/tripTip/dock-1365387_1920_teckun.jpg");
-  background-position:center;
+  background-position: center;
   background-repeat: no-repeat;
   height: calc(100vh - 6rem);
   display: flex;
@@ -22,38 +23,37 @@
   align-items: center;
   flex-direction: column;
   padding: 3rem;
-  
 }
 
 .principal-search h1 {
   font-size: 8rem;
   color: $primary-color;
   font-weight: 900;
-  text-shadow: .2rem .2rem .2rem $secondary-color;
+  text-shadow: 0.2rem 0.2rem 0.2rem $secondary-color;
 }
 
-.principal-search span{
+.principal-search span {
   color: $background-color;
 }
 
 .main-headline {
-  display:flex;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-top: 2rem;
 }
 
-.main-headline h2{
+.main-headline h2 {
   font-size: 4rem;
   color: $text-color;
   font-weight: 700;
   padding: 1rem;
-  text-shadow: .1rem .1rem .1rem $background-color;
+  text-shadow: 0.1rem 0.1rem 0.1rem $background-color;
   text-align: center;
 }
 
-.spinner{
+.spinner {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -86,13 +86,14 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  
 }
+
 .button-view button {
   font-size: 1.5rem;
   font-weight: 500;
   background-color: white;
-  box-shadow: 0 .2rem .2rem 0 rgba(0,0,0,0.16), 0 0 0 0.1rem rgba(0,0,0,0.08);
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.16),
+    0 0 0 0.1rem rgba(0, 0, 0, 0.08);
   border: honeydew;
   display: block;
   width: 50%;
@@ -107,19 +108,30 @@
   color: $background-color;
 }
 
-.social-share{
+.social-share {
   width: 15rem;
 }
 
-.social-share ul{
+.profile {
+  margin-top: 1.5rem;
+}
+
+.social-share ul {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.social-share img {
-  width:4rem;
+.social-share li  {
+  
   padding-left: 1rem;
+}
+.social-share li:first-child {
+  padding-left: 0;
+}
+
+.social-share img{
+  width: 3rem;
 }
 
 .map {
@@ -127,7 +139,8 @@
   height: 70vh;
   border: honeydew;
   border-radius: 0.2rem;
-  box-shadow: 0 .2rem .2rem 0 rgba(0,0,0,0.16), 0 0 0 0.1rem rgba(0,0,0,0.08);
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.16),
+    0 0 0 0.1rem rgba(0, 0, 0, 0.08);
 }
 
 .list {
@@ -165,12 +178,12 @@
   outline: none;
 }
 
-.list-detail{
+.list-detail {
   width: 100%;
   height: 10rem;
   text-align: left;
   display: flex;
-  align-items: center
+  align-items: center;
 }
 
 .search-add {
@@ -182,12 +195,12 @@
   margin: 4rem 0 2rem 0;
 }
 
-.search-add h4{
+.search-add h4 {
   font-size: 1.6rem;
   margin-bottom: 1rem;
 }
 
-.map-reduce{
+.map-reduce {
   height: 50vh;
 }
 
@@ -200,7 +213,7 @@
   margin-top: 2rem;
 }
 
-form label{
+form label {
   font-size: 1.5rem;
   font-weight: 600;
   padding-bottom: 0.5rem;
@@ -214,10 +227,10 @@ form select {
   border-left: honeydew;
   border-right: honeydew;
   border-top: 1px solid #e6e6e6;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 0 0 2px 2px;
 }
-form fieldset{
+form fieldset {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -233,7 +246,7 @@ form fieldset{
   border-left: honeydew;
   border-right: honeydew;
   border-top: 1px solid #e6e6e6;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   border-radius: 0 0 2px 2px;
 }
 
@@ -241,9 +254,10 @@ form fieldset{
   font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
-
+  color: white;
   background-color: $primary-color;
-  box-shadow: 0 .2rem .2rem 0 rgba(0,0,0,0.16), 0 0 0 0.1rem rgba(0,0,0,0.08);
+  box-shadow: 0 0.2rem 0.2rem 0 rgba(0, 0, 0, 0.16),
+    0 0 0 0.1rem rgba(0, 0, 0, 0.08);
   border: honeydew;
   display: block;
   width: 100%;
@@ -262,4 +276,33 @@ form fieldset{
   font-size: 1.5rem;
 }
 
+.nav-profile{
+  margin-top: 2rem;
+  width: 90vw;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+  align-items: center;
+}
 
+.input-city {
+  width: 40rem;
+  height: 4rem;
+  font-size: 1.5rem;
+  border-bottom: honeydew;
+  border-left: honeydew;
+  border-right: honeydew;
+  border-top: 1px solid #e6e6e6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 2px 2px;
+}
+
+.map-profile{
+  margin-top:2rem;
+}
+
+.signup{
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}

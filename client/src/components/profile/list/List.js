@@ -73,104 +73,85 @@ export default class List extends Component {
     const { city, userId } = this.state;
 
     return (
-      <div>
-        <div>
-          {/* <-- Whatsapp --> */}
-          <a
-            href={
-              "whatsapp://send?text=Visita%20mis%20recomendaciones%20https://tipafriend.herokuapp.com/profile/list/" +
-              city +
-              "/" +
-              userId
-            }
-            target="_blank"
-          >
-            Whatsapp
-          </a>
-          {/* <-- Facebook --> */}
-          <a
-            href={
-              "http://www.facebook.com/sharer.php?u=https://tipafriend.herokuapp.com/profile/list/" +
-              city +
-              "/" +
-              userId
-            }
-            target="_blank"
-          >
-            Facebook
-          </a>
+      <React.Fragment>
+        <div className="nav-profile">
+          <div className="social-share profile">
+            <ul>
+              <li>
+                <a
+                  href={
+                    "whatsapp://send?text=Visita%20mis%20recomendaciones%20https://tipafriend.herokuapp.com/profile/list/" +
+                    city +
+                    "/" +
+                    userId
+                  }
+                  target="_blank"
+                >
+                  <img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571323398/tripTip/whatsapp_qobzhg.png" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href={
+                    "http://www.facebook.com/sharer.php?u=https://tipafriend.herokuapp.com/profile/list/" +
+                    city +
+                    "/" +
+                    userId
+                  }
+                  target="_blank"
+                >
+                  <img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571323403/tripTip/facebook_xnml8w.png" />
+                </a>
+              </li>
 
-          {/* <!-- Twitter --> */}
-          <a
-            href={
-              "https://twitter.com/share?url=https://tipafriend.herokuapp.com/profile/list/" +
-              city +
-              "/" +
-              userId
-            }
-            target="_blank"
-          >
-            Twitter
-          </a>
-          {/* <!-- Email --> */}
-          <a
-            href={
-              "mailto:?Subject=Visita%20mis%20recomendaciones%20&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://tipafriend.herokuapp.com/profile/list/" +
-              city +
-              "/" +
-              userId
-            }
-          >
-            Email
-          </a>
+              <li>
+                <a
+                  href={
+                    "https://twitter.com/share?url=https://tipafriend.herokuapp.com/profile/list/" +
+                    city +
+                    "/" +
+                    userId
+                  }
+                  target="_blank"
+                >
+                  <img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571323396/tripTip/twitter_hw9jn1.png" />
+                </a>
+              </li>
+              <li>
+                <a
+                  href={
+                    "mailto:?Subject=Visita%20mis%20recomendaciones%20&amp;Body=I%20saw%20this%20and%20thought%20of%20you!%20 https://tipafriend.herokuapp.com/profile/list/" +
+                    city +
+                    "/" +
+                    userId
+                  }
+                >
+                  <img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571323411/tripTip/email_kqpin0.png" />
+                </a>
+              </li>
+            </ul>
+          </div>
+          <input
+            className="input-city"
+            type="search"
+            defaultValue={this.state.city}
+            placeholder={this.state.city}
+            onChange={e => this.selectCity(e)}
+          />
+          <p>Busca un destino</p>
         </div>
+        <div className="list">
+          <div className="button-list">
+            <button onClick={() => this.showAll()}>Todo</button>
+            <button onClick={() => this.showEat()}>Comer</button>
+            <button onClick={() => this.showSleep()}>Dormir</button>
+            <button onClick={() => this.showSee()}>Visitar</button>
+          </div>
 
-        <input
-          type="search"
-          defaultValue={this.state.city}
-          placeholder={this.state.city}
-          onChange={e => this.selectCity(e)}
-        />
-        <button onClick={() => this.showAll()}>Todo</button>
-        <button onClick={() => this.showEat()}>Comer</button>
-        <button onClick={() => this.showSleep()}>Dormir</button>
-        <button onClick={() => this.showSee()}>Visitar</button>
-
-        {this.state.displayAll &&
-          this.state.places.map(place => {
-            return (
-              <div key={place._id}>
-                <p>{place.address}</p>
-                {place.comments.map(comment => {
-                  return <p key={comment._id}>Comment: {comment.text}</p>;
-                })}
-              </div>
-            );
-          })}
-
-        {this.state.displayEat &&
-          this.state.places
-            .filter(place =>
-              place.type.toLowerCase().includes(eat.toLowerCase())
-            )
-            .map(place => {
+          {this.state.displayAll &&
+            this.state.places.map(place => {
               return (
-                <div key={place._id}>
-                  <p>{place.address}</p>
-                  {place.comments.map(comment => {
-                    return <p key={comment._id}>Comment: {comment.text}</p>;
-                  })}
-                </div>
-              );
-            })}
-        {this.state.displaySleep &&
-          this.state.places
-            .filter(place =>
-              place.type.toLowerCase().includes(sleep.toLowerCase())
-            )
-            .map(place => {
-              return (
-                <div key={place._id}>
+                <div className="list-detail" key={place._id}>
                   <p>{place.address}</p>
                   {place.comments.map(comment => {
                     return <p key={comment._id}>Comment: {comment.text}</p>;
@@ -179,22 +160,54 @@ export default class List extends Component {
               );
             })}
 
-        {this.state.displaySee &&
-          this.state.places
-            .filter(place =>
-              place.type.toLowerCase().includes(see.toLowerCase())
-            )
-            .map(place => {
-              return (
-                <div key={place._id}>
-                  <p>{place.address}</p>
-                  {place.comments.map(comment => {
-                    return <p key={comment._id}>Comment: {comment.text}</p>;
-                  })}
-                </div>
-              );
-            })}
-      </div>
+          {this.state.displayEat &&
+            this.state.places
+              .filter(place =>
+                place.type.toLowerCase().includes(eat.toLowerCase())
+              )
+              .map(place => {
+                return (
+                  <div lassName="list-detail" key={place._id}>
+                    <p>{place.address}</p>
+                    {place.comments.map(comment => {
+                      return <p key={comment._id}>Comment: {comment.text}</p>;
+                    })}
+                  </div>
+                );
+              })}
+          {this.state.displaySleep &&
+            this.state.places
+              .filter(place =>
+                place.type.toLowerCase().includes(sleep.toLowerCase())
+              )
+              .map(place => {
+                return (
+                  <div lassName="list-detail" key={place._id}>
+                    <p>{place.address}</p>
+                    {place.comments.map(comment => {
+                      return <p key={comment._id}>Comment: {comment.text}</p>;
+                    })}
+                  </div>
+                );
+              })}
+
+          {this.state.displaySee &&
+            this.state.places
+              .filter(place =>
+                place.type.toLowerCase().includes(see.toLowerCase())
+              )
+              .map(place => {
+                return (
+                  <div lassName="list-detail" key={place._id}>
+                    <p>{place.address}</p>
+                    {place.comments.map(comment => {
+                      return <p key={comment._id}>Comment: {comment.text}</p>;
+                    })}
+                  </div>
+                );
+              })}
+        </div>
+      </React.Fragment>
     );
   }
 }

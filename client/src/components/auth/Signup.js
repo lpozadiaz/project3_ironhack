@@ -4,7 +4,7 @@ import AuthService from "./AuthService";
 class Signup extends Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", password: "", email: "", photo: "" };
+    this.state = { username: "", password: "", email: ""};
     this.service = new AuthService();
   }
 
@@ -13,16 +13,15 @@ class Signup extends Component {
     const username = this.state.username;
     const password = this.state.password;
     const email = this.state.email;
-    const photo = this.state.photo;
+
 
     this.service
-      .signup(username, password, email, photo)
+      .signup(username, password, email)
       .then(response => {
         this.setState({
           username: "",
           password: "",
           email: "",
-          photo: "",
         });
 
         this.props.getUser(response.user);
@@ -44,13 +43,13 @@ class Signup extends Component {
 
   render() {
     return (
-      <div>
-        <h3>Welcome!, create your account next:</h3>
+      <div className="container">
+        <h3 className="signup">Por favor, introduce tus datos para registrarte</h3>
 
         <form onSubmit={this.handleFormSubmit} content-type="multipart/forma-data">
           <fieldset>
-            <label>Username:</label>
-            <input
+            <label>Nombre de usuario:</label>
+            <input className="input-city"
               type="text"
               name="username"
               value={this.state.username}
@@ -59,8 +58,8 @@ class Signup extends Component {
           </fieldset>
 
           <fieldset>
-            <label>Password:</label>
-            <input
+            <label>Contraseña:</label>
+            <input className="input-city"
               type="password"
               name="password"
               value={this.state.password}
@@ -70,7 +69,7 @@ class Signup extends Component {
 
           <fieldset>
             <label>Email:</label>
-            <input
+            <input className="input-city"
               type="text"
               name="email"
               value={this.state.email}
@@ -78,17 +77,7 @@ class Signup extends Component {
             />
           </fieldset>
 
-          <fieldset>
-            <label>Photo</label>
-            <input
-              type="file"
-              name="photo"
-              value={this.state.photo}
-              onChange={e => this.handleChange(e)}
-            />
-          </fieldset>
-
-          <input type="submit" value="Sign up" />
+          <input className="button-form" type="submit" value="Sign up" />
         </form>
 
         <h1>{this.state.error ? "Error" : ""}</h1>

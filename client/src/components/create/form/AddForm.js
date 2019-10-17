@@ -9,7 +9,7 @@ export default class AddForm extends Component {
       longitude: this.props.longitude,
       address: this.props.address,
       comment: "",
-      type: "",
+      type: "See",
       placeCreated: null
     };
     this.service = new AddService();
@@ -30,6 +30,7 @@ export default class AddForm extends Component {
           comment: "",
           placeCreated: true
         });
+        window.location="/home";
       })
       .catch(error => {
         this.setState({

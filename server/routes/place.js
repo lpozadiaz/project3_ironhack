@@ -70,7 +70,7 @@ router.post("/create", (req, res, next) => {
     .catch(e => next(e));
 });
 
-router.put("/edit", (req, res, next) => {
+router.post("/edit", (req, res, next) => {
   const comment = req.body.comment;
   const commentId = req.body.commentId;
   // if (!comment) {

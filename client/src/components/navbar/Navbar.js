@@ -15,20 +15,28 @@ class Navbar extends Component {
 
   handleLogout = e => {
     this.props.logout();
+    window.location="/home";
   };
 
   render() {
     if (this.state.loggedInUser) {
       return (
         <nav className="nav-style">
-          <Link to="/home"><img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571309273/tripTip/logo_color_yrmwds.png" alt="Logo"></img></Link>
+          <Link to="/home">
+            <img
+              src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571309273/tripTip/logo_color_yrmwds.png"
+              alt="Logo"
+            ></img>
+          </Link>
           <ul>
             <li>
               <Link to="/place/add">Añade una recomendación</Link>
             </li>
+            <li>|</li>
             <li>
-              <a onClick={this.handleLogout}>Desconecta</a>
+              <a onClick={this.handleLogout}>Logout</a>
             </li>
+            <li>|</li>
             <li>
               <Link to={"/myprofile/" + this.state.loggedInUser._id}>
                 Visita tu perfil, {this.state.loggedInUser.username}
@@ -41,14 +49,21 @@ class Navbar extends Component {
       return (
         <div>
           <nav className="nav-style">
-          <Link to="/home"><img src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571309273/tripTip/logo_color_yrmwds.png" alt="Logo"></img></Link>
+            <Link to="/home">
+              <img
+                src="https://res.cloudinary.com/dctu91qjy/image/upload/v1571309273/tripTip/logo_color_yrmwds.png"
+                alt="Logo"
+              ></img>
+            </Link>
             <ul>
               <li>
                 <Link to="/home">Home</Link>
               </li>
+              <li>|</li>
               <li>
                 <Link to="/signup">Signup</Link>
               </li>
+              <li>|</li>
               <li>
                 <Link to="/login">Login</Link>
               </li>
