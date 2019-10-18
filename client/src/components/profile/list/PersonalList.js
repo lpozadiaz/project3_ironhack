@@ -135,7 +135,7 @@ export default class PersonalList extends Component {
           </div>
 
           <input
-          className="input-city"
+            className="input-city"
             type="search"
             defaultValue={this.state.city}
             placeholder={this.state.city}
@@ -150,75 +150,90 @@ export default class PersonalList extends Component {
             <button onClick={() => this.showSleep()}>Dormir</button>
             <button onClick={() => this.showSee()}>Visitar</button>
           </div>
-         
-            {this.state.displayAll &&
-              this.state.places.map(place => {
+
+          {this.state.displayAll &&
+            this.state.places.map(place => {
+              return (
+                <div className="list-detail" key={place._id}>
+                  <Link to={"/myprofile/" + userId + "/" + place._id}>
+                    {place.address.split(",").slice(0, 1)}
+                  </Link>
+                  {place.comments.map(comment => {
+                    return (
+                      <p className="comment" key={comment._id}>
+                        Recomendación: {comment.text}
+                      </p>
+                    );
+                  })}
+                </div>
+              );
+            })}
+
+          {this.state.displayEat &&
+            this.state.places
+              .filter(place =>
+                place.type.toLowerCase().includes(eat.toLowerCase())
+              )
+              .map(place => {
                 return (
                   <div className="list-detail" key={place._id}>
                     <Link to={"/myprofile/" + userId + "/" + place._id}>
-                      {place.address}
+                      {place.address.split(",").slice(0, 1)}
                     </Link>
                     {place.comments.map(comment => {
-                      return <p className="comment" key={comment._id}>Recomendación: {comment.text}</p>;
+                      return (
+                        <p className="comment" key={comment._id}>
+                          Recomendación: {comment.text}
+                        </p>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+          {this.state.displaySleep &&
+            this.state.places
+              .filter(place =>
+                place.type.toLowerCase().includes(sleep.toLowerCase())
+              )
+              .map(place => {
+                return (
+                  <div className="list-detail" key={place._id}>
+                    <Link to={"/myprofile/" + userId + "/" + place._id}>
+                      {place.address.split(",").slice(0, 1)}
+                    </Link>
+                    {place.comments.map(comment => {
+                      return (
+                        <p className="comment" key={comment._id}>
+                          Recomendación: {comment.text}
+                        </p>
+                      );
                     })}
                   </div>
                 );
               })}
 
-            {this.state.displayEat &&
-              this.state.places
-                .filter(place =>
-                  place.type.toLowerCase().includes(eat.toLowerCase())
-                )
-                .map(place => {
-                  return (
-                    <div className="list-detail" key={place._id}>
-                      <Link to={"/myprofile/" + userId + "/" + place._id}>
-                        {place.address}
-                      </Link>
-                      {place.comments.map(comment => {
-                        return <p className="comment" key={comment._id}>Recomendación: {comment.text}</p>;
-                      })}
-                    </div>
-                  );
-                })}
-            {this.state.displaySleep &&
-              this.state.places
-                .filter(place =>
-                  place.type.toLowerCase().includes(sleep.toLowerCase())
-                )
-                .map(place => {
-                  return (
-                    <div className="list-detail" key={place._id}>
-                      <Link to={"/myprofile/" + userId + "/" + place._id}>
-                        {place.address}
-                      </Link>
-                      {place.comments.map(comment => {
-                        return <p className="comment" key={comment._id}>Recomendación: {comment.text}</p>;
-                      })}
-                    </div>
-                  );
-                })}
-
-            {this.state.displaySee &&
-              this.state.places
-                .filter(place =>
-                  place.type.toLowerCase().includes(see.toLowerCase())
-                )
-                .map(place => {
-                  return (
-                    <div className="list-detail" key={place._id}>
-                      <Link to={"/myprofile/" + userId + "/" + place._id}>
-                        {place.address}
-                      </Link>
-                      {place.comments.map(comment => {
-                        return <p className="comment" key={comment._id}>Recomendación: {comment.text}</p>;
-                      })}
-                    </div>
-                  );
-                })}
-          </div>
-       
+          {this.state.displaySee &&
+            this.state.places
+              .filter(place =>
+                place.type.toLowerCase().includes(see.toLowerCase())
+              )
+              .map(place => {
+                return (
+                  <div className="list-detail" key={place._id}>
+                    <Link to={"/myprofile/" + userId + "/" + place._id}>
+                      {place.address.split(",").slice(0, 1)}
+                    </Link>
+                    {place.comments.map(comment => {
+                      return (
+                        <p className="comment" key={comment._id}>
+                          Recomendación: {comment.text}
+                        </p>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+        </div>
       </React.Fragment>
     );
   }
