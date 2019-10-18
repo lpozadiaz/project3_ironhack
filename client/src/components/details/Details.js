@@ -30,8 +30,8 @@ export default class Details extends Component {
 
   getPlace = placeId => {
     axios
-      // .get(`${process.env.REACT_APP_URL}/api/search/all`)
-      .get(`http://localhost:3010/api/search/place/${placeId}`)
+      .get(`${process.env.REACT_APP_URL}/api/search/place/${placeId}`)
+      // .get(`http://localhost:3010/api/search/place/${placeId}`)
 
       .then(apiData => {
         this.setState({
