@@ -65,7 +65,7 @@ export default class MyDetails extends Component {
         this.setState({
           comment: ""
         });
-        window.location="/home";
+        window.location = "/home";
       })
       .catch(error => {
         this.setState({
@@ -92,41 +92,64 @@ export default class MyDetails extends Component {
 
   render() {
     const { place, userId, placeId } = this.state;
-    console.log(placeId);
 
     return (
-      <div>
+      <div className="container">
         {place && (
-          <div>
+          <React.Fragment>
+            <h5>{place.address.split(",").slice(0, 1)}</h5>
+            <p>
+              {place.address
+                .split(",")
+                .slice(1)
+                .join(",")}
+            </p>
             {place.comments
               .filter(comment => comment.authorId[0]._id.includes(userId))
               .map(comment => {
                 return (
-                  <div key={comment._id}>
+                  <div className="personal-details" key={comment._id}>
                     {!this.state.displayEdit && (
-                      <div>
-                        <p>Comment: {comment.text}</p>{" "}
-                        <button onClick={() => this.showEdit()}>Editar</button>
+                      <React.Fragment>
                         <a
+                          className="google"
                           href={
                             "https://www.google.com/maps/search/" +
                             place.address
                           }
                           target="_blank"
                         >
+                          {" "}
                           Busca en Google
                         </a>
-                        <button onClick={() => this.handleDelete()}>
+
+                        <div className="detail-comment">
+                          {" "}
+                          <p>
+                            Recomendación: <span>{comment.text}</span>
+                          </p>
+                        </div>
+                        <button
+                          className="button-form"
+                          onClick={() => this.showEdit()}
+                        >
+                          Editar
+                        </button>
+
+                        <button
+                          className="button-form"
+                          onClick={() => this.handleDelete()}
+                        >
                           Eliminar
                         </button>
-                      </div>
+                      </React.Fragment>
                     )}
                     {this.state.displayEdit && (
                       <div>
                         <form onSubmit={this.handleFormSubmit}>
                           <fieldset>
-                            <label>Tip:</label>
-                            <input
+                            <label>Recomendación:</label>
+                            <input className="input-add"
                               type="text"
                               name="comment"
                               value={this.state.comment}
@@ -134,14 +157,14 @@ export default class MyDetails extends Component {
                               onChange={e => this.handleChange(e)}
                             />
                           </fieldset>
-                          <input type="submit" value="Update" />
+                          <input className="button-form" type="submit" value="Actualizar" />
                         </form>
                       </div>
                     )}
                   </div>
                 );
               })}
-          </div>
+          </React.Fragment>
         )}
       </div>
     );

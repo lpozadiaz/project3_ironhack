@@ -9,7 +9,11 @@ const getInfoWindowString = place => `
       height: "200px"
     }}
   >
-    <div style="font-size: 16px;">${place.address}</div>
+    <div style="font-size: 16px;"><a href="https://tipafriend.herokuapp.com/place/${
+      place._id
+    }">
+    ${place.address.split(",").slice(0, 1)}
+  </a></div>
   </div>`;
 
 // Refer to https://github.com/google-map-react/google-map-react#use-google-maps-api

@@ -44,29 +44,32 @@ export default class Details extends Component {
     const { place } = this.state;
 
     return (
-      <div>
+      <div className="container">
         {place && (
-          <div>
+          <React.Fragment>
+            <h5>{place.address.split(",").slice(0, 1)}</h5>
+            <p>{place.address.split(",").slice(1).join(",")}</p>
+
             {place.comments.map(comment => {
               return (
-                <div key={comment._id}>
-                  <p >
-                    Comment: {comment.text} / Autor:{" "}
-                    {comment.authorId[0].username}
-                  </p>{" "}
-                    <a
-                    href={
-                      "https://www.google.com/maps/search/" +
-                      place.address
-                    }
+                <React.Fragment>
+                  <a className="google"
+                    href={"https://www.google.com/maps/search/" + place.address}
                     target="_blank"
                   >
                     Busca en Google
                   </a>
-                </div>
+                  <h6>Recomendaciones</h6>
+                  <div className="detail-comment" key={comment._id}>
+                    <p>
+                      {comment.authorId[0].username}
+                      <span>{comment.text}</span>
+                    </p>
+                  </div>
+                </React.Fragment>
               );
             })}
-          </div>
+          </React.Fragment>
         )}
       </div>
     );

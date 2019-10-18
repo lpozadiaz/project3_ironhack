@@ -152,9 +152,15 @@ export default class List extends Component {
             this.state.places.map(place => {
               return (
                 <div className="list-detail" key={place._id}>
-                  <p>{place.address}</p>
+                  <p className="strong">
+                    {place.address.split(",").slice(0, 1)}
+                  </p>
                   {place.comments.map(comment => {
-                    return <p key={comment._id}>Comment: {comment.text}</p>;
+                    return (
+                      <p className="comment" key={comment._id}>
+                        Recomendación: {comment.text}
+                      </p>
+                    );
                   })}
                 </div>
               );
@@ -167,10 +173,16 @@ export default class List extends Component {
               )
               .map(place => {
                 return (
-                  <div lassName="list-detail" key={place._id}>
-                    <p>{place.address}</p>
+                  <div className="list-detail" key={place._id}>
+                    <p className="strong">
+                      {place.address.split(",").slice(0, 1)}
+                    </p>
                     {place.comments.map(comment => {
-                      return <p key={comment._id}>Comment: {comment.text}</p>;
+                      return (
+                        <p className="comment" key={comment._id}>
+                          Recomendación: {comment.text}
+                        </p>
+                      );
                     })}
                   </div>
                 );
@@ -182,10 +194,16 @@ export default class List extends Component {
               )
               .map(place => {
                 return (
-                  <div lassName="list-detail" key={place._id}>
-                    <p>{place.address}</p>
+                  <div className="list-detail" key={place._id}>
+                    <p className="strong">
+                      {place.address.split(",").slice(0, 1)}
+                    </p>
                     {place.comments.map(comment => {
-                      return <p key={comment._id}>Comment: {comment.text}</p>;
+                      return (
+                        <p className="comment" key={comment._id}>
+                          Recomendación: {comment.text}
+                        </p>
+                      );
                     })}
                   </div>
                 );
@@ -198,10 +216,16 @@ export default class List extends Component {
               )
               .map(place => {
                 return (
-                  <div lassName="list-detail" key={place._id}>
-                    <p>{place.address}</p>
+                  <div className="list-detail" key={place._id}>
+                    <p className="strong">
+                      {place.address.split(",").slice(0, 1)}
+                    </p>
                     {place.comments.map(comment => {
-                      return <p key={comment._id}>Comment: {comment.text}</p>;
+                      return (
+                        <p className="comment" key={comment._id}>
+                          Recomendación: {comment.text}
+                        </p>
+                      );
                     })}
                   </div>
                 );

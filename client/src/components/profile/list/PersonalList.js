@@ -159,7 +159,7 @@ export default class PersonalList extends Component {
                       {place.address}
                     </Link>
                     {place.comments.map(comment => {
-                      return <p key={comment._id}>Comment: {comment.text}</p>;
+                      return <p className="comment" key={comment._id}>Recomendación: {comment.text}</p>;
                     })}
                   </div>
                 );
@@ -177,7 +177,7 @@ export default class PersonalList extends Component {
                         {place.address}
                       </Link>
                       {place.comments.map(comment => {
-                        return <p key={comment._id}>Comment: {comment.text}</p>;
+                        return <p className="comment" key={comment._id}>Recomendación: {comment.text}</p>;
                       })}
                     </div>
                   );
@@ -194,7 +194,7 @@ export default class PersonalList extends Component {
                         {place.address}
                       </Link>
                       {place.comments.map(comment => {
-                        return <p key={comment._id}>Comment: {comment.text}</p>;
+                        return <p className="comment" key={comment._id}>Recomendación: {comment.text}</p>;
                       })}
                     </div>
                   );
@@ -212,7 +212,7 @@ export default class PersonalList extends Component {
                         {place.address}
                       </Link>
                       {place.comments.map(comment => {
-                        return <p key={comment._id}>Comment: {comment.text}</p>;
+                        return <p className="comment" key={comment._id}>Recomendación: {comment.text}</p>;
                       })}
                     </div>
                   );
